@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國中英文通關傳說：全文法攻略</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #4f46e5;
+            --accent: #f59e0b;
+            --bg: #f0fdf4; /* 淡淡的綠色背景，護眼且放鬆 */
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --correct: #10b981;
+            --wrong: #ef4444;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: var(--secondary);
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        /* --- Menu Grid System --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .topic-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .topic-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .topic-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+        .topic-desc {
+            font-size: 0.9rem;
+            color: #6b7280;
+            line-height: 1.4;
+        }
+        .topic-tag {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            background: #e0e7ff;
+            color: var(--secondary);
+            font-weight: bold;
+            width: fit-content;
+        }
+
+        /* --- Game Interface (Hidden by default) --- */
+        #game-interface {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .game-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .concept-section {
+            padding: 20px;
+            background: #fdf2f8; /* 淺粉紅提示區 */
+            border-bottom: 2px solid #fce7f3;
+        }
+        .concept-title { font-weight: bold; color: #db2777; margin-bottom: 8px; }
+        .concept-content { font-size: 0.95rem; line-height: 1.6; }
+
+        .quiz-section {
+            padding: 30px 25px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .question-box {
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #e5e7eb;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #f9fafb;
+            border-color: #d1d5db;
+        }
+
+        .feedback-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        .feedback-correct { background: #d1fae5; color: #065f46; }
+        .feedback-wrong { background: #fee2e2; color: #991b1b; }
+
+        .next-btn {
+            display: none;
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- Result View --- */
+        #result-view {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .stars { font-size: 3rem; color: #d1d5db; margin: 20px 0; }
+        .stars span.gold { color: var(--accent); text-shadow: 0 0 15px rgba(245, 158, 11, 0.6); }
+        .score-big { font-size: 4rem; font-weight: 900; color: var(--secondary); }
+        
+        .highlight-keyword {
+            color: #d946ef;
+            font-weight: bold;
+            background: #fae8ff;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header id="main-header">
+        <h1>⚔️ 國中英文通關傳說</h1>
+        <div class="subtitle">選擇一個關卡，開始修補你的文法地圖！</div>
+    </header>
+
+    <div id="menu-view" class="menu-grid">
+        </div>
+
+    <div id="game-interface">
+        <div class="game-header">
+            <button class="back-btn" onclick="showMenu()">❮ 回目錄</button>
+            <span id="level-title-display">Level Title</span>
+            <span>★ <span id="current-score">0</span></span>
+        </div>
+        
+        <div class="concept-section" id="concept-display">
+            </div>
+
+        <div class="quiz-section">
+            <div class="progress-info">
+                <span>挑戰進度</span>
+                <span id="progress-text">1 / 5</span>
+            </div>
+            
+            <div class="question-box" id="question-text">
+                Loading...
+            </div>
+
+            <div class="options-grid" id="options-area">
+                </div>
+
+            <div class="feedback-box" id="feedback-area"></div>
+            <button class="next-btn" id="next-btn" onclick="nextQuestion()">下一題 ➔</button>
+        </div>
+    </div>
+
+    <div id="result-view">
+        <h2>🎉 關卡完成！</h2>
+        <div class="stars" id="result-stars">
+            <span>★</span><span>★</span><span>★</span>
+        </div>
+        <div>本次得分</div>
+        <div class="score-big" id="final-score">0</div>
+        <p id="result-comment" style="color:#666; margin-bottom: 30px;">評語...</p>
+        <button class="option-btn" style="background:var(--secondary); color:white; border:none;" onclick="showMenu()">回到地圖</button>
+    </div>
+</div>
+
+<script>
+    // --- Data: 國中核心文法資料庫 ---
+    // 這裡設計了不同的人稱變化與陷阱題
+    const grammarData = [
+        {
+            id: "u1_be",
+            title: "第一章：Be 動詞王者",
+            desc: "搞懂 am, is, are 的變化，這是所有英文的基礎！",
+            tag: "國一上核心",
+            concept: `
+                <div class="concept-title">💡 攻略口訣：</div>
+                <div class="concept-content">
+                    1. <strong>I (我)</strong> 專用 <span class="highlight-keyword">am</span>。<br>
+                    2. <strong>You (你), We (我們), They (他們)</strong> 用 <span class="highlight-keyword">are</span>。<br>
+                    3. <strong>He/She/It (單數)</strong> 用 <span class="highlight-keyword">is</span>。<br>
+                    ⚠️ 陷阱：只要是「複數」（如：Tom and I, The cats），通通都用 <strong>are</strong>！
+                </div>
+            `,
+            questions: [
+                { q: "I ___ very hungry.", options: ["am", "is", "are"], ans: 0, explain: "主詞是 I (我)，國王是 am。" },
+                { q: "He ___ my brother.", options: ["am", "is", "are"], ans: 1, explain: "主詞是 He (他)，單數用 is。" },
+                { q: "They ___ busy now.", options: ["is", "am", "are"], ans: 2, explain: "They (他們) 是複數，要用 are。" },
+                { q: "My mother ___ a teacher.", options: ["is", "are", "am"], ans: 0, explain: "My mother = She (她)，所以用 is。" },
+                { q: "Tom and I ___ good friends.", options: ["am", "are", "is"], ans: 1, explain: "注意！Tom and I = We (我們)，兩個人是複數，要用 are！不能看到 I 就選 am。" },
+                { q: "The dog ___ cute.", options: ["are", "is", "am"], ans: 1, explain: "The dog = It (牠)，單數用 is。" },
+                { q: "The books ___ on the desk.", options: ["is", "are", "am"], ans: 1, explain: "The books (書本們) 有加 s 是複數，要用 are。" },
+                { q: "Where ___ you from?", options: ["is", "are", "am"], ans: 1, explain: "主詞是 you (你)，搭配 are。" }
+            ]
+        },
+        {
+            id: "u2_do",
+            title: "第二章：一般動詞 (助動詞)",
+            desc: "Do 還是 Does？分辨單數與複數的動作規則。",
+            tag: "國一上進階",
+            concept: `
+                <div class="concept-title">💡 攻略口訣：</div>
+                <div class="concept-content">
+                    1. 一般動詞疑問句，需要超人 <strong>Do/Does</strong> 來幫忙。<br>
+                    2. <strong>He/She/It (單人)</strong> 用 <span class="highlight-keyword">Does</span>。<br>
+                    3. <strong>I/You/We/They (多人)</strong> 用 <span class="highlight-keyword">Do</span>。<br>
+                    4. 照妖鏡法則：助動詞 Do/Does 出現後，後面的動詞要打回原形！
+                </div>
+            `,
+            questions: [
+                { q: "___ you like pizza?", options: ["Do", "Does", "Are"], ans: 0, explain: "主詞是 You，助動詞用 Do。" },
+                { q: "___ she play tennis?", options: ["Do", "Does", "Is"], ans: 1, explain: "主詞是 She (三單)，助動詞用 Does。" },
+                { q: "Does he ___ to school?", options: ["go", "goes", "going"], ans: 0, explain: "Does 出現了！後面的動詞要變回原形 go。" },
+                { q: "What ___ your father do?", options: ["do", "does", "is"], ans: 1, explain: "your father = He (他)，所以用 does。" },
+                { q: "They ___ not watch TV.", options: ["do", "does", "are"], ans: 0, explain: "They (他們) 否定用 do not (don't)。" },
+                { q: "___ Ken and Mary know you?", options: ["Do", "Does", "Are"], ans: 0, explain: "Ken and Mary = They (複數)，所以用 Do。" }
+            ]
+        },
+        {
+            id: "u3_ing",
+            title: "第三章：現在進行式",
+            desc: "正在做什麼？記得 Be 動詞 + V-ing 公式。",
+            tag: "國一核心",
+            concept: `
+                <div class="concept-title">💡 攻略口訣：</div>
+                <div class="concept-content">
+                    <strong>正在做</strong> = <span class="highlight-keyword">Be動詞 + V-ing</span>。<br>
+                    缺一不可！就像漢堡要有麵包(Be)和肉(ing)才完整。<br>
+                    Look! Listen! Now! 這些字出現通常都是進行式。
+                </div>
+            `,
+            questions: [
+                { q: "I am ___ English.", options: ["study", "studying", "studies"], ans: 1, explain: "有 am (Be動詞)，後面動作要加 ing。" },
+                { q: "Look! The bus is ___.", options: ["come", "coming", "comes"], ans: 1, explain: "Look (看!) 暗示正在發生，用 is coming。" },
+                { q: "They ___ playing basketball.", options: ["is", "are", "do"], ans: 1, explain: "playing 有 ing，前面要補上 Be動詞，They 配 are。" },
+                { q: "What are you ___?", options: ["doing", "do", "does"], ans: 0, explain: "前面有 are，後面用 doing。" },
+                { q: "___ she sleeping?", options: ["Does", "Is", "Do"], ans: 1, explain: "sleeping 有 ing，問句開頭要用 Is。" }
+            ]
+        },
+        {
+            id: "u4_past",
+            title: "第四章：過去式 (was/were)",
+            desc: "回到過去！Be 動詞變身 was 與 were。",
+            tag: "國二基礎",
+            concept: `
+                <div class="concept-title">💡 攻略口訣：</div>
+                <div class="concept-content">
+                    時光機法則：<br>
+                    am / is ➔ 變成 <span class="highlight-keyword">was</span> (單數)<br>
+                    are ➔ 變成 <span class="highlight-keyword">were</span> (複數)<br>
+                    關鍵字：Yesterday (昨天), Last night (昨晚), Ago (之前)。
+                </div>
+            `,
+            questions: [
+                { q: "I ___ sick yesterday.", options: ["am", "was", "were"], ans: 1, explain: "yesterday 是過去，am 變成 was。" },
+                { q: "They ___ at home last night.", options: ["are", "was", "were"], ans: 2, explain: "last night 是過去，are 變成 were。" },
+                { q: "Where ___ you two hours ago?", options: ["was", "were", "are"], ans: 1, explain: "ago 是過去，you 搭配 were。" },
+                { q: "It ___ rainy last Sunday.", options: ["is", "was", "were"], ans: 1, explain: "It 單數，過去式用 was。" },
+                { q: "___ Ken happy yesterday?", options: ["Was", "Were", "Did"], ans: 0, explain: "Ken 單數，問句用 Was 開頭。" }
+            ]
+        },
+        {
+            id: "u5_past_did",
+            title: "第五章：過去式 (Did)",
+            desc: "一般動作的過去式，規則變化與不規則變化。",
+            tag: "國二重點",
+            concept: `
+                <div class="concept-title">💡 攻略口訣：</div>
+                <div class="concept-content">
+                    1. 肯定句：動詞加 ed (如 played) 或變形 (如 went)。<br>
+                    2. 疑問/否定句：召喚超人 <span class="highlight-keyword">Did</span>。<br>
+                    3. 照妖鏡：Did 出現，後面的動詞變回原形！
+                </div>
+            `,
+            questions: [
+                { q: "He ___ basketball yesterday.", options: ["play", "played", "playing"], ans: 1, explain: "過去式肯定句，play 加 ed。" },
+                { q: "I ___ to the zoo last week.", options: ["go", "went", "goes"], ans: 1, explain: "go 的過去式是不規則變化 went。" },
+                { q: "___ you see him yesterday?", options: ["Do", "Did", "Were"], ans: 1, explain: "see 是動作，過去疑問句用 Did。" },
+                { q: "She didn't ___ homework.", options: ["did", "do", "does"], ans: 1, explain: "didn't 出現，後面動詞用原形 do。" },
+                { q: "They ___ pizza last night.", options: ["eat", "ate", "eating"], ans: 1, explain: "eat 的過去式是 ate。" }
+            ]
+        },
+        {
+            id: "u6_future",
+            title: "第六章：未來式",
+            desc: "將要做什麼？Will 與 Be going to 的用法。",
+            tag: "國二核心",
+            concept: `
+                <div class="concept-title">💡 攻略口訣：</div>
+                <div class="concept-content">
+                    1. <span class="highlight-keyword">will</span> + 原形動詞。<br>
+                    2. <span class="highlight-keyword">be going to</span> + 原形動詞。<br>
+                    關鍵字：Tomorrow (明天), Next week (下週)。
+                </div>
+            `,
+            questions: [
+                { q: "I ___ call you tomorrow.", options: ["will", "am", "did"], ans: 0, explain: "tomorrow 是未來，用 will。" },
+                { q: "He is ___ to buy a car.", options: ["go", "going", "will"], ans: 1, explain: "is going to 是未來式片語。" },
+                { q: "They will ___ to Taipei.", options: ["go", "going", "went"], ans: 0, explain: "will 後面一定要接原形動詞 go。" },
+                { q: "Are you going to ___ basketball?", options: ["playing", "play", "played"], ans: 1, explain: "to 後面接原形動詞 play。" }
+            ]
+        },
+        {
+            id: "u7_ordinal",
+            title: "第七章：形容詞比較級",
+            desc: "比較誰比較快、誰比較高？er 與 more。",
+            tag: "國二進階",
+            concept: `
+                <div class="concept-title">💡 攻略口訣：</div>
+                <div class="concept-content">
+                    1. 短的字：字尾 + <span class="highlight-keyword">er</span> (例：taller)。<br>
+                    2. 長的字：前面 + <span class="highlight-keyword">more</span> (例：more beautiful)。<br>
+                    3. 關鍵字：<strong>than</strong> (比)。
+                </div>
+            `,
+            questions: [
+                { q: "The elephant is ___ than the dog.", options: ["big", "biger", "bigger"], ans: 2, explain: "big 重複字尾加 er 變成 bigger。" },
+                { q: "She is ___ than me.", options: ["taller", "tall", "more tall"], ans: 0, explain: "tall 是短字，直接加 er。" },
+                { q: "English is ___ than math.", options: ["easyer", "easier", "more easy"], ans: 1, explain: "easy 去 y 改 ier。" },
+                { q: "This flower is ___ than that one.", options: ["beautiful", "beautifuler", "more beautiful"], ans: 2, explain: "beautiful 是長字，前面加 more。" }
+            ]
+        }
+    ];
+
+    // --- State Management ---
+    let currentTopic = null;
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    // --- DOM Elements ---
+    const menuView = document.getElementById('menu-view');
+    const gameInterface = document.getElementById('game-interface');
+    const mainHeader = document.getElementById('main-header');
+    const resultView = document.getElementById('result-view');
+    
+    // Game elements
+    const conceptDisplay = document.getElementById('concept-display');
+    const questionText = document.getElementById('question-text');
+    const optionsArea = document.getElementById('options-area');
+    const feedbackArea = document.getElementById('feedback-area');
+    const nextBtn = document.getElementById('next-btn');
+    const scoreDisplay = document.getElementById('current-score');
+    const progressText = document.getElementById('progress-text');
+    const levelTitleDisplay = document.getElementById('level-title-display');
+
+    // --- Initialization ---
+    function init() {
+        renderMenu();
+    }
+
+    function renderMenu() {
+        menuView.innerHTML = '';
+        grammarData.forEach((topic, index) => {
+            const card = document.createElement('div');
+            card.className = 'topic-card';
+            card.onclick = () => startGame(index);
+            
+            // Assign random icon for fun
+            const icons = ['🏰', '⚔️', '🛡️', '🧙‍♂️', '🐉', '📜', '🎯'];
+            const icon = icons[index % icons.length];
+
+            card.innerHTML = `
+                <div>
+                    <div class="topic-icon">${icon}</div>
+                    <div class="topic-title">${topic.title}</div>
+                    <div class="topic-desc">${topic.desc}</div>
+                </div>
+                <div class="topic-tag">${topic.tag}</div>
+            `;
+            menuView.appendChild(card);
+        });
+    }
+
+    // --- Game Logic ---
+    function startGame(index) {
+        currentTopic = grammarData[index];
+        currentQuestionIndex = 0;
+        score = 0;
+        
+        // Hide menu, show game
+        menuView.style.display = 'none';
+        mainHeader.style.display = 'none';
+        resultView.style.display = 'none';
+        gameInterface.style.display = 'block';
+
+        // Setup UI
+        levelTitleDisplay.textContent = currentTopic.title;
+        conceptDisplay.innerHTML = currentTopic.concept;
+        scoreDisplay.textContent = 0;
+
+        loadQuestion();
+    }
+
+    function showMenu() {
+        gameInterface.style.display = 'none';
+        resultView.style.display = 'none';
+        mainHeader.style.display = 'block';
+        menuView.style.display = 'grid';
+    }
+
+    function loadQuestion() {
+        const qData = currentTopic.questions[currentQuestionIndex];
+        
+        progressText.textContent = `${currentQuestionIndex + 1} / ${currentTopic.questions.length}`;
+        questionText.textContent = qData.q;
+        
+        // Reset Inputs
+        feedbackArea.style.display = 'none';
+        feedbackArea.className = 'feedback-box';
+        nextBtn.style.display = 'none';
+        optionsArea.innerHTML = '';
+
+        // Generate Options
+        qData.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.textContent = opt;
+            btn.onclick = () => checkAnswer(idx);
+            optionsArea.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(selectedIndex) {
+        const qData = currentTopic.questions[currentQuestionIndex];
+        const buttons = optionsArea.querySelectorAll('button');
+        
+        // Lock buttons
+        buttons.forEach(btn => btn.disabled = true);
+
+        if(selectedIndex === qData.ans) {
+            // Correct
+            score++;
+            scoreDisplay.textContent = score;
+            buttons[selectedIndex].style.background = '#d1fae5';
+            buttons[selectedIndex].style.borderColor = '#10b981';
+            feedbackArea.textContent = "🎉 正確！ " + qData.explain;
+            feedbackArea.classList.add('feedback-correct');
+        } else {
+            // Wrong
+            buttons[selectedIndex].style.background = '#fee2e2';
+            buttons[selectedIndex].style.borderColor = '#ef4444';
+            // Show correct one
+            buttons[qData.ans].style.background = '#d1fae5';
+            
+            feedbackArea.textContent = "💪 加油！ " + qData.explain;
+            feedbackArea.classList.add('feedback-wrong');
+        }
+
+        feedbackArea.style.display = 'block';
+        nextBtn.style.display = 'block';
+    }
+
+    function nextQuestion() {
+        if (currentQuestionIndex < currentTopic.questions.length - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        gameInterface.style.display = 'none';
+        resultView.style.display = 'block';
+
+        const total = currentTopic.questions.length;
+        const finalScoreVal = Math.round((score / total) * 100);
+        document.getElementById('final-score').textContent = finalScoreVal;
+
+        // Star logic
+        let starsHTML = '';
+        let comment = '';
+        if (score === total) {
+            starsHTML = '<span class="gold">★</span><span class="gold">★</span><span class="gold">★</span>';
+            comment = "完美通關！你是文法大師！🏆";
+        } else if (score >= total - 2) {
+            starsHTML = '<span class="gold">★</span><span class="gold">★</span><span>★</span>';
+            comment = "太棒了！觀念已經很清楚囉！👏";
+        } else {
+            starsHTML = '<span class="gold">★</span><span>★</span><span>★</span>';
+            comment = "沒關係，多玩幾次就會了！只要弄懂就是進步！💪";
+        }
+
+        document.getElementById('result-stars').innerHTML = starsHTML;
+        document.getElementById('result-comment').textContent = comment;
+    }
+
+    // Run
+    init();
+
+</script>
+
+</body>
+</html>
