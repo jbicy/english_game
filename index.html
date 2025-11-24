@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>國中英文通關傳說：全文法攻略</title>
+    <title>國中英文通關傳說：全課綱終極版</title>
     <style>
         :root {
             --primary: #6366f1;
             --secondary: #4f46e5;
             --accent: #f59e0b;
-            --bg: #f0fdf4; /* 淡淡的綠色背景，護眼且放鬆 */
+            --bg: #f0fdf4;
             --card-bg: #ffffff;
             --text: #1f2937;
             --correct: #10b981;
@@ -26,7 +26,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px; /*稍微加寬以容納更多卡片*/
             margin: 0 auto;
         }
 
@@ -48,7 +48,7 @@
         /* --- Menu Grid System --- */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 20px;
         }
 
@@ -63,6 +63,8 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+            overflow: hidden;
         }
 
         .topic-card:hover {
@@ -77,18 +79,18 @@
         }
         .topic-title {
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             margin-bottom: 5px;
             color: var(--text);
         }
         .topic-desc {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #6b7280;
             line-height: 1.4;
+            margin-bottom: 10px;
         }
         .topic-tag {
             display: inline-block;
-            margin-top: 10px;
             font-size: 0.75rem;
             padding: 4px 8px;
             border-radius: 12px;
@@ -97,8 +99,11 @@
             font-weight: bold;
             width: fit-content;
         }
+        /* 國三標籤特別顏色 */
+        .tag-g3 { background: #fee2e2; color: #b91c1c; }
+        .tag-g2 { background: #fef3c7; color: #b45309; }
 
-        /* --- Game Interface (Hidden by default) --- */
+        /* --- Game Interface --- */
         #game-interface {
             display: none;
             background: var(--card-bg);
@@ -130,7 +135,7 @@
 
         .concept-section {
             padding: 20px;
-            background: #fdf2f8; /* 淺粉紅提示區 */
+            background: #fdf2f8;
             border-bottom: 2px solid #fce7f3;
         }
         .concept-title { font-weight: bold; color: #db2777; margin-bottom: 8px; }
@@ -149,7 +154,7 @@
         }
 
         .question-box {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: bold;
             text-align: center;
             margin-bottom: 30px;
@@ -157,6 +162,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            line-height: 1.4;
         }
 
         .options-grid {
@@ -170,10 +176,13 @@
             border: 2px solid #e5e7eb;
             padding: 15px;
             border-radius: 12px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             cursor: pointer;
             transition: 0.2s;
             color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .option-btn:hover:not(:disabled) {
             background: #f9fafb;
@@ -187,6 +196,7 @@
             text-align: center;
             font-weight: bold;
             display: none;
+            line-height: 1.5;
         }
         .feedback-correct { background: #d1fae5; color: #065f46; }
         .feedback-wrong { background: #fee2e2; color: #991b1b; }
@@ -232,8 +242,8 @@
 
 <div class="container">
     <header id="main-header">
-        <h1>⚔️ 國中英文通關傳說</h1>
-        <div class="subtitle">選擇一個關卡，開始修補你的文法地圖！</div>
+        <h1>⚔️ 國中英文通關傳說：全攻略</h1>
+        <div class="subtitle">包含名詞、時態、助動詞、被動語態與三大子句</div>
     </header>
 
     <div id="menu-view" class="menu-grid">
@@ -246,8 +256,7 @@
             <span>★ <span id="current-score">0</span></span>
         </div>
         
-        <div class="concept-section" id="concept-display">
-            </div>
+        <div class="concept-section" id="concept-display"></div>
 
         <div class="quiz-section">
             <div class="progress-info">
@@ -255,12 +264,9 @@
                 <span id="progress-text">1 / 5</span>
             </div>
             
-            <div class="question-box" id="question-text">
-                Loading...
-            </div>
+            <div class="question-box" id="question-text">Loading...</div>
 
-            <div class="options-grid" id="options-area">
-                </div>
+            <div class="options-grid" id="options-area"></div>
 
             <div class="feedback-box" id="feedback-area"></div>
             <button class="next-btn" id="next-btn" onclick="nextQuestion()">下一題 ➔</button>
@@ -280,159 +286,198 @@
 </div>
 
 <script>
-    // --- Data: 國中核心文法資料庫 ---
-    // 這裡設計了不同的人稱變化與陷阱題
+    // --- Data: 完整國中核心文法資料庫 ---
     const grammarData = [
+        // --- 國一 (基礎) ---
         {
-            id: "u1_be",
-            title: "第一章：Be 動詞王者",
-            desc: "搞懂 am, is, are 的變化，這是所有英文的基礎！",
-            tag: "國一上核心",
-            concept: `
-                <div class="concept-title">💡 攻略口訣：</div>
-                <div class="concept-content">
-                    1. <strong>I (我)</strong> 專用 <span class="highlight-keyword">am</span>。<br>
-                    2. <strong>You (你), We (我們), They (他們)</strong> 用 <span class="highlight-keyword">are</span>。<br>
-                    3. <strong>He/She/It (單數)</strong> 用 <span class="highlight-keyword">is</span>。<br>
-                    ⚠️ 陷阱：只要是「複數」（如：Tom and I, The cats），通通都用 <strong>are</strong>！
-                </div>
-            `,
+            title: "L1. Be 動詞王者",
+            desc: "am, is, are 的變化規則。",
+            tag: "國一基礎",
+            tagClass: "tag-g1",
+            concept: "口訣：I 配 am，You 配 are，單數 is，複數 are。",
             questions: [
-                { q: "I ___ very hungry.", options: ["am", "is", "are"], ans: 0, explain: "主詞是 I (我)，國王是 am。" },
-                { q: "He ___ my brother.", options: ["am", "is", "are"], ans: 1, explain: "主詞是 He (他)，單數用 is。" },
-                { q: "They ___ busy now.", options: ["is", "am", "are"], ans: 2, explain: "They (他們) 是複數，要用 are。" },
-                { q: "My mother ___ a teacher.", options: ["is", "are", "am"], ans: 0, explain: "My mother = She (她)，所以用 is。" },
-                { q: "Tom and I ___ good friends.", options: ["am", "are", "is"], ans: 1, explain: "注意！Tom and I = We (我們)，兩個人是複數，要用 are！不能看到 I 就選 am。" },
-                { q: "The dog ___ cute.", options: ["are", "is", "am"], ans: 1, explain: "The dog = It (牠)，單數用 is。" },
-                { q: "The books ___ on the desk.", options: ["is", "are", "am"], ans: 1, explain: "The books (書本們) 有加 s 是複數，要用 are。" },
-                { q: "Where ___ you from?", options: ["is", "are", "am"], ans: 1, explain: "主詞是 you (你)，搭配 are。" }
+                { q: "I ___ a student.", options: ["am", "is", "are"], ans: 0, explain: "I 專用 am。" },
+                { q: "Tom and I ___ brothers.", options: ["am", "is", "are"], ans: 2, explain: "Tom and I = We (複數)，用 are。" },
+                { q: "My father ___ busy.", options: ["am", "is", "are"], ans: 1, explain: "Father (他) 是單數，用 is。" },
+                { q: "The cats ___ cute.", options: ["is", "am", "are"], ans: 2, explain: "Cats 有 s 是複數，用 are。" }
             ]
         },
         {
-            id: "u2_do",
-            title: "第二章：一般動詞 (助動詞)",
-            desc: "Do 還是 Does？分辨單數與複數的動作規則。",
-            tag: "國一上進階",
-            concept: `
-                <div class="concept-title">💡 攻略口訣：</div>
-                <div class="concept-content">
-                    1. 一般動詞疑問句，需要超人 <strong>Do/Does</strong> 來幫忙。<br>
-                    2. <strong>He/She/It (單人)</strong> 用 <span class="highlight-keyword">Does</span>。<br>
-                    3. <strong>I/You/We/They (多人)</strong> 用 <span class="highlight-keyword">Do</span>。<br>
-                    4. 照妖鏡法則：助動詞 Do/Does 出現後，後面的動詞要打回原形！
-                </div>
-            `,
+            title: "L2. 代名詞與所有格",
+            desc: "主格、受格、所有格大亂鬥。",
+            tag: "國一重點",
+            tagClass: "tag-g1",
+            concept: "主格放句首(I)，受格放動詞後(me)，所有格後面接名詞(my book)。",
             questions: [
-                { q: "___ you like pizza?", options: ["Do", "Does", "Are"], ans: 0, explain: "主詞是 You，助動詞用 Do。" },
-                { q: "___ she play tennis?", options: ["Do", "Does", "Is"], ans: 1, explain: "主詞是 She (三單)，助動詞用 Does。" },
-                { q: "Does he ___ to school?", options: ["go", "goes", "going"], ans: 0, explain: "Does 出現了！後面的動詞要變回原形 go。" },
-                { q: "What ___ your father do?", options: ["do", "does", "is"], ans: 1, explain: "your father = He (他)，所以用 does。" },
-                { q: "They ___ not watch TV.", options: ["do", "does", "are"], ans: 0, explain: "They (他們) 否定用 do not (don't)。" },
-                { q: "___ Ken and Mary know you?", options: ["Do", "Does", "Are"], ans: 0, explain: "Ken and Mary = They (複數)，所以用 Do。" }
+                { q: "___ likes apples.", options: ["He", "Him", "His"], ans: 0, explain: "句首缺主詞，用主格 He。" },
+                { q: "Don't look at ___.", options: ["I", "me", "my"], ans: 1, explain: "at 是介系詞，後面接受格 me。" },
+                { q: "This is ___ pen.", options: ["she", "her", "hers"], ans: 1, explain: "pen 是名詞，前面用所有格 her。" },
+                { q: "Is that bike ___?", options: ["you", "your", "yours"], ans: 2, explain: "句尾沒有名詞，用所有格代名詞 yours (你的東西)。" }
             ]
         },
         {
-            id: "u3_ing",
-            title: "第三章：現在進行式",
-            desc: "正在做什麼？記得 Be 動詞 + V-ing 公式。",
+            title: "L3. 一般動詞與助動詞",
+            desc: "Do/Does 的用法與第三人稱單數。",
             tag: "國一核心",
-            concept: `
-                <div class="concept-title">💡 攻略口訣：</div>
-                <div class="concept-content">
-                    <strong>正在做</strong> = <span class="highlight-keyword">Be動詞 + V-ing</span>。<br>
-                    缺一不可！就像漢堡要有麵包(Be)和肉(ing)才完整。<br>
-                    Look! Listen! Now! 這些字出現通常都是進行式。
-                </div>
-            `,
+            tagClass: "tag-g1",
+            concept: "疑問否定找 Do/Does。三單(He/She/It)用 Does，動詞記得打回原形！",
             questions: [
-                { q: "I am ___ English.", options: ["study", "studying", "studies"], ans: 1, explain: "有 am (Be動詞)，後面動作要加 ing。" },
-                { q: "Look! The bus is ___.", options: ["come", "coming", "comes"], ans: 1, explain: "Look (看!) 暗示正在發生，用 is coming。" },
-                { q: "They ___ playing basketball.", options: ["is", "are", "do"], ans: 1, explain: "playing 有 ing，前面要補上 Be動詞，They 配 are。" },
-                { q: "What are you ___?", options: ["doing", "do", "does"], ans: 0, explain: "前面有 are，後面用 doing。" },
-                { q: "___ she sleeping?", options: ["Does", "Is", "Do"], ans: 1, explain: "sleeping 有 ing，問句開頭要用 Is。" }
+                { q: "___ you like cats?", options: ["Do", "Does", "Are"], ans: 0, explain: "You 搭配 Do。" },
+                { q: "She ___ not eat beef.", options: ["do", "does", "is"], ans: 1, explain: "She 是三單，否定用 does not。" },
+                { q: "Does he ___ to school?", options: ["go", "goes", "going"], ans: 0, explain: "Does 出現，動詞變原形 go。" },
+                { q: "My mom ___ pizza.", options: ["like", "likes", "liking"], ans: 1, explain: "Mom (三單) 肯定句動詞加 s。" }
             ]
         },
         {
-            id: "u4_past",
-            title: "第四章：過去式 (was/were)",
-            desc: "回到過去！Be 動詞變身 was 與 were。",
+            title: "L4. 現在進行式",
+            desc: "Be + V-ing 表示正在發生的動作。",
+            tag: "國一動詞",
+            tagClass: "tag-g1",
+            concept: "正在做 = Be動詞 + V-ing。缺一不可！",
+            questions: [
+                { q: "Look! He is ___.", options: ["run", "running", "runs"], ans: 1, explain: "is 後面接 ing (字尾單一子音重複 n)。" },
+                { q: "Are they ___ TV?", options: ["watch", "watching", "watches"], ans: 1, explain: "Are 後面接 V-ing。" },
+                { q: "What ___ you doing?", options: ["do", "are", "can"], ans: 1, explain: "doing 暗示進行式，搭配 are。" }
+            ]
+        },
+        {
+            title: "L5. 存在句與數量",
+            desc: "There is/are 與 How many/much。",
+            tag: "國一進階",
+            tagClass: "tag-g1",
+            concept: "There is + 單數/不可數。There are + 複數。Many接可數，Much接不可數。",
+            questions: [
+                { q: "There ___ a book on the desk.", options: ["is", "are", "have"], ans: 0, explain: "a book 單數用 is。" },
+                { q: "There ___ many people here.", options: ["is", "are", "has"], ans: 1, explain: "people 是複數，用 are。" },
+                { q: "How ___ water do you need?", options: ["many", "much", "long"], ans: 1, explain: "Water 不可數，用 much。" },
+                { q: "How ___ apples are there?", options: ["many", "much", "old"], ans: 0, explain: "Apples 可數，用 many。" }
+            ]
+        },
+        // --- 國二 (變化) ---
+        {
+            title: "L6. 過去式 (Be動詞)",
+            desc: "Was 與 Were 的時光機。",
             tag: "國二基礎",
-            concept: `
-                <div class="concept-title">💡 攻略口訣：</div>
-                <div class="concept-content">
-                    時光機法則：<br>
-                    am / is ➔ 變成 <span class="highlight-keyword">was</span> (單數)<br>
-                    are ➔ 變成 <span class="highlight-keyword">were</span> (複數)<br>
-                    關鍵字：Yesterday (昨天), Last night (昨晚), Ago (之前)。
-                </div>
-            `,
+            tagClass: "tag-g2",
+            concept: "am/is 變 was，are 變 were。關鍵字：Yesterday, Last night。",
             questions: [
-                { q: "I ___ sick yesterday.", options: ["am", "was", "were"], ans: 1, explain: "yesterday 是過去，am 變成 was。" },
-                { q: "They ___ at home last night.", options: ["are", "was", "were"], ans: 2, explain: "last night 是過去，are 變成 were。" },
-                { q: "Where ___ you two hours ago?", options: ["was", "were", "are"], ans: 1, explain: "ago 是過去，you 搭配 were。" },
-                { q: "It ___ rainy last Sunday.", options: ["is", "was", "were"], ans: 1, explain: "It 單數，過去式用 was。" },
-                { q: "___ Ken happy yesterday?", options: ["Was", "Were", "Did"], ans: 0, explain: "Ken 單數，問句用 Was 開頭。" }
+                { q: "I ___ sick yesterday.", options: ["am", "was", "were"], ans: 1, explain: "Yesterday 過去式，I 用 was。" },
+                { q: "They ___ at the zoo last week.", options: ["are", "was", "were"], ans: 2, explain: "Last week 過去式，They 用 were。" },
+                { q: "___ she happy then?", options: ["Was", "Were", "Did"], ans: 0, explain: "She 單數用 Was 開頭。" }
             ]
         },
         {
-            id: "u5_past_did",
-            title: "第五章：過去式 (Did)",
-            desc: "一般動作的過去式，規則變化與不規則變化。",
-            tag: "國二重點",
-            concept: `
-                <div class="concept-title">💡 攻略口訣：</div>
-                <div class="concept-content">
-                    1. 肯定句：動詞加 ed (如 played) 或變形 (如 went)。<br>
-                    2. 疑問/否定句：召喚超人 <span class="highlight-keyword">Did</span>。<br>
-                    3. 照妖鏡：Did 出現，後面的動詞變回原形！
-                </div>
-            `,
-            questions: [
-                { q: "He ___ basketball yesterday.", options: ["play", "played", "playing"], ans: 1, explain: "過去式肯定句，play 加 ed。" },
-                { q: "I ___ to the zoo last week.", options: ["go", "went", "goes"], ans: 1, explain: "go 的過去式是不規則變化 went。" },
-                { q: "___ you see him yesterday?", options: ["Do", "Did", "Were"], ans: 1, explain: "see 是動作，過去疑問句用 Did。" },
-                { q: "She didn't ___ homework.", options: ["did", "do", "does"], ans: 1, explain: "didn't 出現，後面動詞用原形 do。" },
-                { q: "They ___ pizza last night.", options: ["eat", "ate", "eating"], ans: 1, explain: "eat 的過去式是 ate。" }
-            ]
-        },
-        {
-            id: "u6_future",
-            title: "第六章：未來式",
-            desc: "將要做什麼？Will 與 Be going to 的用法。",
+            title: "L7. 過去式 (一般動詞)",
+            desc: "Did 與動詞的過去變化。",
             tag: "國二核心",
-            concept: `
-                <div class="concept-title">💡 攻略口訣：</div>
-                <div class="concept-content">
-                    1. <span class="highlight-keyword">will</span> + 原形動詞。<br>
-                    2. <span class="highlight-keyword">be going to</span> + 原形動詞。<br>
-                    關鍵字：Tomorrow (明天), Next week (下週)。
-                </div>
-            `,
+            tagClass: "tag-g2",
+            concept: "疑問否定找 Did。Did 出現動詞回原形。注意不規則變化 (go→went)。",
             questions: [
-                { q: "I ___ call you tomorrow.", options: ["will", "am", "did"], ans: 0, explain: "tomorrow 是未來，用 will。" },
-                { q: "He is ___ to buy a car.", options: ["go", "going", "will"], ans: 1, explain: "is going to 是未來式片語。" },
-                { q: "They will ___ to Taipei.", options: ["go", "going", "went"], ans: 0, explain: "will 後面一定要接原形動詞 go。" },
-                { q: "Are you going to ___ basketball?", options: ["playing", "play", "played"], ans: 1, explain: "to 後面接原形動詞 play。" }
+                { q: "He ___ basketball yesterday.", options: ["play", "played", "plays"], ans: 1, explain: "過去肯定句加 ed。" },
+                { q: "We ___ to Taipei last year.", options: ["go", "went", "goes"], ans: 1, explain: "Go 的過去式是 Went。" },
+                { q: "Did you ___ him?", options: ["see", "saw", "seeing"], ans: 0, explain: "Did 出現，動詞用原形 see。" },
+                { q: "I didn't ___ dinner.", options: ["eat", "ate", "eaten"], ans: 0, explain: "didn't 出現，動詞用原形 eat。" }
             ]
         },
         {
-            id: "u7_ordinal",
-            title: "第七章：形容詞比較級",
-            desc: "比較誰比較快、誰比較高？er 與 more。",
-            tag: "國二進階",
-            concept: `
-                <div class="concept-title">💡 攻略口訣：</div>
-                <div class="concept-content">
-                    1. 短的字：字尾 + <span class="highlight-keyword">er</span> (例：taller)。<br>
-                    2. 長的字：前面 + <span class="highlight-keyword">more</span> (例：more beautiful)。<br>
-                    3. 關鍵字：<strong>than</strong> (比)。
-                </div>
-            `,
+            title: "L8. 未來式",
+            desc: "Will 與 Be going to。",
+            tag: "國二時態",
+            tagClass: "tag-g2",
+            concept: "will + 原形動詞 = be going to + 原形動詞。",
             questions: [
-                { q: "The elephant is ___ than the dog.", options: ["big", "biger", "bigger"], ans: 2, explain: "big 重複字尾加 er 變成 bigger。" },
-                { q: "She is ___ than me.", options: ["taller", "tall", "more tall"], ans: 0, explain: "tall 是短字，直接加 er。" },
-                { q: "English is ___ than math.", options: ["easyer", "easier", "more easy"], ans: 1, explain: "easy 去 y 改 ier。" },
-                { q: "This flower is ___ than that one.", options: ["beautiful", "beautifuler", "more beautiful"], ans: 2, explain: "beautiful 是長字，前面加 more。" }
+                { q: "I ___ call you later.", options: ["will", "am", "going"], ans: 0, explain: "will 後接原形，表示將要。" },
+                { q: "He is ___ to buy a car.", options: ["go", "going", "will"], ans: 1, explain: "is going to 片語。" },
+                { q: "They will ___ busy tomorrow.", options: ["be", "are", "is"], ans: 0, explain: "will 後面一定要原形，形容詞前要補 be。" }
+            ]
+        },
+        {
+            title: "L9. 形容詞比較級與最高級",
+            desc: "er/more 與 the est/most。",
+            tag: "國二進階",
+            tagClass: "tag-g2",
+            concept: "兩者比較用 er/more + than。三者以上最高級用 the + est/most。",
+            questions: [
+                { q: "Wait for me! You are ___ than me.", options: ["fast", "faster", "fastest"], ans: 1, explain: "than 前面用比較級 faster。" },
+                { q: "English is ___ than math.", options: ["easy", "easier", "more easy"], ans: 1, explain: "easy 去 y 改 ier。" },
+                { q: "Who is the ___ student in class?", options: ["tall", "taller", "tallest"], ans: 2, explain: "in class 範圍內最...，有 the 用最高級。" },
+                { q: "The movie is the most ___.", options: ["good", "better", "popular"], ans: 2, explain: "most 搭配長音節形容詞 popular。" }
+            ]
+        },
+        {
+            title: "L10. 動名詞 vs 不定詞",
+            desc: "Like V-ing 還是 Want to V？",
+            tag: "國二重點",
+            tagClass: "tag-g2",
+            concept: "Enjoy/Practice/Finish + V-ing。<br>Want/Need/Plan + to V。<br>Like/Love/Start 兩者皆可。",
+            questions: [
+                { q: "I enjoy ___ English.", options: ["learn", "learning", "to learn"], ans: 1, explain: "Enjoy 後面必接 V-ing。" },
+                { q: "He wants ___ a doctor.", options: ["be", "being", "to be"], ans: 2, explain: "Want 後面必接 to V。" },
+                { q: "She practices ___ the piano.", options: ["play", "playing", "to play"], ans: 1, explain: "Practice 後面必接 V-ing。" },
+                { q: "They decided ___ home.", options: ["go", "going", "to go"], ans: 2, explain: "Decide (決定) 後面接 to V。" }
+            ]
+        },
+        // --- 國三 (高階) ---
+        {
+            title: "L11. 助動詞大全",
+            desc: "Can, Must, Should, Have to 用法。",
+            tag: "國三必考",
+            tagClass: "tag-g3",
+            concept: "所有助動詞(Can/Must/Should)後接原形。<br>Must = Have to (必須)。",
+            questions: [
+                { q: "You ___ study hard.", options: ["should", "should to", "are"], ans: 0, explain: "Should (應該) 直接加原形。" },
+                { q: "He ___ to go now.", options: ["must", "has", "should"], ans: 1, explain: "有 to，所以是用 has to (必須)。Must 後不加 to。" },
+                { q: "I ___ swim.", options: ["can", "am", "can to"], ans: 0, explain: "Can (會/能夠) 加原形。" }
+            ]
+        },
+        {
+            title: "L12. 現在完成式",
+            desc: "Have/Has + p.p. 的經驗與持續。",
+            tag: "國三核心",
+            tagClass: "tag-g3",
+            concept: "公式：Have/Has + p.p.<br>關鍵字：Since(自從), For(持續), Just, Yet, Ever。",
+            questions: [
+                { q: "I ___ been to Japan twice.", options: ["am", "did", "have"], ans: 2, explain: "been 是 be 的 p.p.，搭配 Have 形成完成式。" },
+                { q: "She has ___ lunch.", options: ["eat", "ate", "eaten"], ans: 2, explain: "Has 後面接 p.p. (eaten)。" },
+                { q: "We have lived here ___ ten years.", options: ["since", "for", "in"], ans: 1, explain: "Ten years 是一段時間，用 for。" },
+                { q: "He has studied ___ 2010.", options: ["since", "for", "ago"], ans: 0, explain: "2010 是時間點，用 since (自從)。" }
+            ]
+        },
+        {
+            title: "L13. 被動語態",
+            desc: "主詞被動作：Be + p.p. (+ by)。",
+            tag: "國三難點",
+            tagClass: "tag-g3",
+            concept: "公式：Be動詞(注意時態) + p.p.。<br>口訣：主動變被動，位置交叉換。",
+            questions: [
+                { q: "The cake ___ eaten by him.", options: ["is", "has", "did"], ans: 0, explain: "被吃掉 = is eaten (Be + p.p.)。" },
+                { q: "The book was ___ by Mark.", options: ["wrote", "write", "written"], ans: 2, explain: "Was 後面接 p.p. (written)。" },
+                { q: "Homework must be ___.", options: ["do", "done", "did"], ans: 1, explain: "Must be 後面接 p.p. (done)。" }
+            ]
+        },
+        {
+            title: "L14. 名詞子句",
+            desc: "I know that... / I don't know who...",
+            tag: "國三進階",
+            tagClass: "tag-g3",
+            concept: "子句當名詞用。注意：子句內不再倒裝！<br>錯：I know who is he.<br>對：I know who he is.",
+            questions: [
+                { q: "I think ___ he is a good man.", options: ["that", "what", "which"], ans: 0, explain: "think 後面接 that 子句。" },
+                { q: "Do you know who ___?", options: ["is she", "she is", "does she"], ans: 1, explain: "名詞子句不倒裝，先主詞 she 再動詞 is。" },
+                { q: "I don't know where ___.", options: ["does he live", "he lives", "he live"], ans: 1, explain: "子句回復直述句：he lives。" }
+            ]
+        },
+        {
+            title: "L15. 附和句與連接詞",
+            desc: "So do I / Neither do I 與連接詞。",
+            tag: "國三總結",
+            tagClass: "tag-g3",
+            concept: "肯定附和：So + 助動詞 + 主詞。<br>否定附和：Neither + 助動詞 + 主詞。",
+            questions: [
+                { q: "A: I like dogs. B: So ___ I.", options: ["do", "am", "can"], ans: 0, explain: "Like 是由 do 助動詞幫忙，所以用 So do I。" },
+                { q: "A: I am happy. B: So ___ I.", options: ["do", "am", "was"], ans: 1, explain: "前句有 am，附和就用 am。" },
+                { q: "A: I can't fly. B: ___ can I.", options: ["So", "Neither", "Either"], ans: 1, explain: "否定句的附和（我也不行）用 Neither。" },
+                { q: "Although it rained, ___ we went out.", options: ["but", "x", "so"], ans: 1, explain: "Although(雖然) 和 But(但是) 不能連用！選 x。" }
             ]
         }
     ];
@@ -470,9 +515,10 @@
             card.className = 'topic-card';
             card.onclick = () => startGame(index);
             
-            // Assign random icon for fun
-            const icons = ['🏰', '⚔️', '🛡️', '🧙‍♂️', '🐉', '📜', '🎯'];
+            // Assign random icon
+            const icons = ['🏰', '⚔️', '🛡️', '🧙‍♂️', '🐉', '📜', '🎯', '💎', '🏺', '🗝️'];
             const icon = icons[index % icons.length];
+            const tagClass = topic.tagClass || '';
 
             card.innerHTML = `
                 <div>
@@ -480,7 +526,7 @@
                     <div class="topic-title">${topic.title}</div>
                     <div class="topic-desc">${topic.desc}</div>
                 </div>
-                <div class="topic-tag">${topic.tag}</div>
+                <div class="topic-tag ${tagClass}">${topic.tag}</div>
             `;
             menuView.appendChild(card);
         });
@@ -492,15 +538,17 @@
         currentQuestionIndex = 0;
         score = 0;
         
-        // Hide menu, show game
         menuView.style.display = 'none';
         mainHeader.style.display = 'none';
         resultView.style.display = 'none';
         gameInterface.style.display = 'block';
 
-        // Setup UI
         levelTitleDisplay.textContent = currentTopic.title;
-        conceptDisplay.innerHTML = currentTopic.concept;
+        // Concept 加上標題樣式
+        conceptDisplay.innerHTML = `
+            <div class="concept-title">💡 攻略秘籍</div>
+            <div class="concept-content">${currentTopic.concept}</div>
+        `;
         scoreDisplay.textContent = 0;
 
         loadQuestion();
@@ -539,11 +587,9 @@
         const qData = currentTopic.questions[currentQuestionIndex];
         const buttons = optionsArea.querySelectorAll('button');
         
-        // Lock buttons
         buttons.forEach(btn => btn.disabled = true);
 
         if(selectedIndex === qData.ans) {
-            // Correct
             score++;
             scoreDisplay.textContent = score;
             buttons[selectedIndex].style.background = '#d1fae5';
@@ -551,13 +597,11 @@
             feedbackArea.textContent = "🎉 正確！ " + qData.explain;
             feedbackArea.classList.add('feedback-correct');
         } else {
-            // Wrong
             buttons[selectedIndex].style.background = '#fee2e2';
             buttons[selectedIndex].style.borderColor = '#ef4444';
-            // Show correct one
             buttons[qData.ans].style.background = '#d1fae5';
             
-            feedbackArea.textContent = "💪 加油！ " + qData.explain;
+            feedbackArea.textContent = "💪 答錯囉！ " + qData.explain;
             feedbackArea.classList.add('feedback-wrong');
         }
 
@@ -582,18 +626,17 @@
         const finalScoreVal = Math.round((score / total) * 100);
         document.getElementById('final-score').textContent = finalScoreVal;
 
-        // Star logic
         let starsHTML = '';
         let comment = '';
         if (score === total) {
             starsHTML = '<span class="gold">★</span><span class="gold">★</span><span class="gold">★</span>';
             comment = "完美通關！你是文法大師！🏆";
-        } else if (score >= total - 2) {
+        } else if (score >= total - 1) {
             starsHTML = '<span class="gold">★</span><span class="gold">★</span><span>★</span>';
-            comment = "太棒了！觀念已經很清楚囉！👏";
+            comment = "太棒了！觀念非常清楚！👏";
         } else {
             starsHTML = '<span class="gold">★</span><span>★</span><span>★</span>';
-            comment = "沒關係，多玩幾次就會了！只要弄懂就是進步！💪";
+            comment = "再接再厲！弄懂觀念就是進步！💪";
         }
 
         document.getElementById('result-stars').innerHTML = starsHTML;
