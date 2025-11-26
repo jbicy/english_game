@@ -261,7 +261,7 @@
         <div class="quiz-section">
             <div class="progress-info">
                 <span>挑戰進度</span>
-                <span id="progress-text">1 / 5</span>
+                <span id="progress-text">1 / 10</span>
             </div>
             
             <div class="question-box" id="question-text">Loading...</div>
@@ -286,33 +286,85 @@
 </div>
 
 <script>
-    // --- Data: 完整國中核心文法資料庫 ---
+    // --- Data: 完整國中核心文法資料庫 (每個主題已擴充至 30 題) ---
     const grammarData = [
         // --- 國一 (基礎) ---
         {
             title: "L1. Be 動詞王者",
-            desc: "am, is, are 的變化規則。",
+            desc: "am, is, are, was, were 的變化規則。",
             tag: "國一基礎",
             tagClass: "tag-g1",
-            concept: "口訣：I 配 am，You 配 are，單數 is，複數 are。",
+            concept: "口訣：I 配 am，You 配 are，單數 is，複數 are。過去式 am/is 變 was，are 變 were。",
             questions: [
                 { q: "I ___ a student.", options: ["am", "is", "are"], ans: 0, explain: "I 專用 am。" },
                 { q: "Tom and I ___ brothers.", options: ["am", "is", "are"], ans: 2, explain: "Tom and I = We (複數)，用 are。" },
                 { q: "My father ___ busy.", options: ["am", "is", "are"], ans: 1, explain: "Father (他) 是單數，用 is。" },
-                { q: "The cats ___ cute.", options: ["is", "am", "are"], ans: 2, explain: "Cats 有 s 是複數，用 are。" }
+                { q: "The cats ___ cute.", options: ["is", "am", "are"], ans: 2, explain: "Cats 有 s 是複數，用 are。" },
+                { q: "She ___ here yesterday.", options: ["is", "are", "was"], ans: 2, explain: "Yesterday 過去式，She 單數用 was。" },
+                { q: "We ___ happy last night.", options: ["is", "are", "were"], ans: 2, explain: "Last night 過去式，We 複數用 were。" },
+                { q: "___ you ready?", options: ["Is", "Am", "Are"], ans: 2, explain: "You 搭配 Are。" },
+                { q: "It ___ cold outside right now.", options: ["is", "are", "was"], ans: 0, explain: "It 單數用 is。" },
+                { q: "The weather ___ nice yesterday.", options: ["is", "was", "were"], ans: 1, explain: "The weather 不可數/單數，過去式用 was。" },
+                { q: "Who ___ that girl?", options: ["is", "are", "am"], ans: 0, explain: "That girl 是單數，用 is。" },
+                { q: "___ the books on the table?", options: ["Is", "Was", "Are"], ans: 2, explain: "The books 複數，用 Are。" },
+                { q: "My brother and sister ___ at home.", options: ["is", "am", "are"], ans: 2, explain: "兩個人複數，用 are。" },
+                { q: "I ___ sick yesterday.", options: ["am", "was", "were"], ans: 1, explain: "I 過去式用 was。" },
+                { q: "They ___ playing basketball now.", options: ["is", "are", "were"], ans: 1, explain: "Now 進行式，They 用 are。" },
+                { q: "___ the movie interesting?", options: ["Are", "Is", "Were"], ans: 1, explain: "The movie 單數用 Is。" },
+                { q: "The food ___ delicious.", options: ["is", "are", "were"], ans: 0, explain: "The food 不可數，用 is。" },
+                { q: "When ___ you born?", options: ["are", "was", "were"], ans: 2, explain: "You 搭配 were。" },
+                { q: "We ___ late for the meeting.", options: ["am", "is", "are"], ans: 2, explain: "We 搭配 are。" },
+                { q: "She ___ tired after running.", options: ["is", "are", "am"], ans: 0, explain: "She 單數用 is。" },
+                { q: "Look! The dog ___ in the house.", options: ["is", "are", "were"], ans: 0, explain: "The dog 單數用 is。" },
+                { q: "How ___ your vacation?", options: ["is", "are", "was"], ans: 2, explain: "Vacation 單數，問過去的事用 was。" },
+                { q: "Why ___ he so mad?", options: ["is", "are", "were"], ans: 0, explain: "He 單數用 is。" },
+                { q: "They ___ busy this morning.", options: ["were", "are", "is"], ans: 0, explain: "This morning (已結束的時間) 用 were。" },
+                { q: "My name ___ Jason.", options: ["is", "am", "are"], ans: 0, explain: "Name 單數用 is。" },
+                { q: "Where ___ the keys?", options: ["is", "was", "are"], ans: 2, explain: "Keys 複數，用 are。" },
+                { q: "That ___ a great idea!", options: ["is", "are", "were"], ans: 0, explain: "That 單數用 is。" },
+                { q: "It ___ raining outside.", options: ["is", "are", "was"], ans: 0, explain: "It 單數用 is。" },
+                { q: "You ___ my best friend.", options: ["is", "am", "are"], ans: 2, explain: "You 搭配 are。" },
+                { q: "The flowers ___ beautiful.", options: ["is", "are", "am"], ans: 1, explain: "Flowers 複數用 are。" },
+                { q: "___ this your pencil?", options: ["Are", "Is", "Am"], ans: 1, explain: "This 單數用 Is。" }
             ]
         },
         {
             title: "L2. 代名詞與所有格",
-            desc: "主格、受格、所有格大亂鬥。",
+            desc: "主格、受格、所有格大亂鬥。**反身代名詞**用法。",
             tag: "國一重點",
             tagClass: "tag-g1",
-            concept: "主格放句首(I)，受格放動詞後(me)，所有格後面接名詞(my book)。",
+            concept: "主格放句首(I)，受格放動詞後(me)，所有格後面接名詞(my book)。**反身代名詞**：強調或指代動作的執行者(myself, himself)。",
             questions: [
                 { q: "___ likes apples.", options: ["He", "Him", "His"], ans: 0, explain: "句首缺主詞，用主格 He。" },
                 { q: "Don't look at ___.", options: ["I", "me", "my"], ans: 1, explain: "at 是介系詞，後面接受格 me。" },
                 { q: "This is ___ pen.", options: ["she", "her", "hers"], ans: 1, explain: "pen 是名詞，前面用所有格 her。" },
-                { q: "Is that bike ___?", options: ["you", "your", "yours"], ans: 2, explain: "句尾沒有名詞，用所有格代名詞 yours (你的東西)。" }
+                { q: "Is that bike ___?", options: ["you", "your", "yours"], ans: 2, explain: "句尾沒有名詞，用所有格代名詞 yours (你的東西)。" },
+                { q: "We can do it by ___.", options: ["us", "our", "ourselves"], ans: 2, explain: "by ourselves (靠我們自己)。" },
+                { q: "She bought a present for ___.", options: ["her", "herself", "she"], ans: 1, explain: "for herself：她自己買給自己 (反身代名詞)。" },
+                { q: "Please call ___ when you get home.", options: ["we", "us", "our"], ans: 1, explain: "動詞 call 後面接受格 us。" },
+                { q: "The dog hurt ___ leg.", options: ["it", "its", "it's"], ans: 1, explain: "leg 是名詞，前面用所有格 its。" },
+                { q: "This gift is from ___.", options: ["they", "them", "their"], ans: 1, explain: "from 是介系詞，後面接受格 them。" },
+                { q: "That car is ___.", options: ["we", "our", "ours"], ans: 2, explain: "句尾沒有名詞，用所有格代名詞 ours (我們的東西)。" },
+                { q: "The boys cleaned the room ___.", options: ["themselves", "them", "theirselves"], ans: 0, explain: "The boys 複數反身代名詞 themselves。" },
+                { q: "I made this cake ___.", options: ["myself", "my", "me"], ans: 0, explain: "by myself (我自己做的)。" },
+                { q: "Can you help ___?", options: ["I", "me", "my"], ans: 1, explain: "help 是動詞，後面接受格 me。" },
+                { q: "The house is not ___.", options: ["their", "them", "theirs"], ans: 2, explain: "所有格代名詞 theirs (他們的)。" },
+                { q: "We love ___ new house.", options: ["us", "our", "ours"], ans: 1, explain: "house 是名詞，前面用所有格 our。" },
+                { q: "Don't blame ___ for the mistake.", options: ["you", "your", "yourself"], ans: 2, explain: "責怪你自己 (反身代名詞)。" },
+                { q: "Did ___ finish the job?", options: ["him", "he", "his"], ans: 1, explain: "句首主詞用 He。" },
+                { q: "The flowers are for ___.", options: ["she", "her", "hers"], ans: 1, explain: "for 是介系詞，後面接受格 her。" },
+                { q: "My phone looks like ___.", options: ["your", "you", "yours"], ans: 2, explain: "指「你的電話」，用所有格代名詞 yours。" },
+                { q: "The boss trusts ___.", options: ["I", "me", "mine"], ans: 1, explain: "動詞 trusts 後面接受格 me。" },
+                { q: "Please teach ___ English.", options: ["we", "us", "our"], ans: 1, explain: "teach 後面接受格 us。" },
+                { q: "This is ___ book, not mine.", options: ["you", "your", "yours"], ans: 1, explain: "book 是名詞，前面用所有格 your。" },
+                { q: "___ is coming to the party.", options: ["They", "Them", "Their"], ans: 0, explain: "句首主詞用 They。" },
+                { q: "We saw the movie ___.", options: ["ours", "ourself", "ourselves"], ans: 2, explain: "我們自己看的 (反身代名詞)。" },
+                { q: "She lost ___ keys yesterday.", options: ["her", "hers", "she"], ans: 0, explain: "keys 是名詞，前面用所有格 her。" },
+                { q: "Tell ___ the truth.", options: ["I", "me", "my"], ans: 1, explain: "動詞 Tell 後面接受格 me。" },
+                { q: "The picture was painted by ___.", options: ["he", "him", "his"], ans: 1, explain: "by 後面接受格 him。" },
+                { q: "___ are going to the concert.", options: ["We", "Us", "Our"], ans: 0, explain: "句首主詞用 We。" },
+                { q: "I found ___ notebook in the classroom.", options: ["my", "mine", "me"], ans: 0, explain: "notebook 是名詞，前面用所有格 my。" },
+                { q: "Did you hurt ___?", options: ["your", "you", "yourself"], ans: 2, explain: "你弄傷你自己嗎 (反身代名詞)。" }
             ]
         },
         {
@@ -325,7 +377,33 @@
                 { q: "___ you like cats?", options: ["Do", "Does", "Are"], ans: 0, explain: "You 搭配 Do。" },
                 { q: "She ___ not eat beef.", options: ["do", "does", "is"], ans: 1, explain: "She 是三單，否定用 does not。" },
                 { q: "Does he ___ to school?", options: ["go", "goes", "going"], ans: 0, explain: "Does 出現，動詞變原形 go。" },
-                { q: "My mom ___ pizza.", options: ["like", "likes", "liking"], ans: 1, explain: "Mom (三單) 肯定句動詞加 s。" }
+                { q: "My mom ___ pizza.", options: ["like", "likes", "liking"], ans: 1, explain: "Mom (三單) 肯定句動詞加 s。" },
+                { q: "We ___ not have class today.", options: ["does", "do", "is"], ans: 1, explain: "We 複數用 do not。" },
+                { q: "___ your sister live in Taipei?", options: ["Do", "Does", "Is"], ans: 1, explain: "Your sister (三單) 用 Does。" },
+                { q: "He ___ a book every week.", options: ["read", "reads", "reading"], ans: 1, explain: "He (三單) 肯定句動詞加 s。" },
+                { q: "I ___ a bath every morning.", options: ["takes", "take", "took"], ans: 1, explain: "I 搭配 take (原形動詞)。" },
+                { q: "They ___ not watch TV often.", options: ["does", "do", "are"], ans: 1, explain: "They 複數用 do not。" },
+                { q: "___ the boys play soccer?", options: ["Does", "Do", "Are"], ans: 1, explain: "The boys 複數用 Do。" },
+                { q: "He ___ his homework after school.", options: ["do", "does", "doing"], ans: 1, explain: "He (三單) 肯定句動詞加 es (does)。" },
+                { q: "Does the cat ___ milk?", options: ["drinks", "drink", "drinking"], ans: 1, explain: "Does 出現，動詞回原形 drink。" },
+                { q: "We ___ English three times a week.", options: ["study", "studies", "studying"], ans: 0, explain: "We 複數用原形動詞 study。" },
+                { q: "My parents ___ not live here.", options: ["does", "do", "is"], ans: 1, explain: "Parents (複數) 用 do not。" },
+                { q: "___ she walk to school every day?", options: ["Do", "Does", "Is"], ans: 1, explain: "She (三單) 用 Does。" },
+                { q: "He ___ up early on weekends.", options: ["get", "gets", "getting"], ans: 1, explain: "He (三單) 肯定句動詞加 s。" },
+                { q: "What time ___ you usually go to bed?", options: ["does", "do", "are"], ans: 1, explain: "You 搭配 do。" },
+                { q: "The sun ___ in the east.", options: ["rise", "rises", "rising"], ans: 1, explain: "The sun (三單) 肯定句動詞加 s。" },
+                { q: "My sister ___ not have a car.", options: ["do", "does", "is"], ans: 1, explain: "Sister (三單) 用 does not。" },
+                { q: "___ they often go shopping?", options: ["Does", "Do", "Are"], ans: 1, explain: "They 複數用 Do。" },
+                { q: "He always ___ his teeth.", options: ["brush", "brushes", "brushing"], ans: 1, explain: "He (三單) 肯定句動詞加 es (brushes)。" },
+                { q: "We ___ TV now.", options: ["watch", "watches", "are watching"], ans: 2, explain: "Now 提示現在進行式，用 are watching。" },
+                { q: "Does your mom ___ coffee?", options: ["likes", "like", "liking"], ans: 1, explain: "Does 出現，動詞回原形 like。" },
+                { q: "I usually ___ breakfast at 7 a.m.", options: ["have", "has", "having"], ans: 0, explain: "I 搭配原形動詞 have。" },
+                { q: "The baby ___ not cry much.", options: ["do", "does", "is"], ans: 1, explain: "The baby (三單) 用 does not。" },
+                { q: "What ___ he do on weekends?", options: ["is", "does", "do"], ans: 1, explain: "He (三單) 用 does。" },
+                { q: "They ___ not like vegetables.", options: ["does", "do", "are"], ans: 1, explain: "They 複數用 do not。" },
+                { q: "He ___ a teacher.", options: ["is", "does", "do"], ans: 0, explain: "這是 Be 動詞句，He 單數用 is。" },
+                { q: "The dogs ___ bark loudly.", options: ["do", "does", "are"], ans: 0, explain: "Dogs 複數用 do。" },
+                { q: "She ___ not often go out.", options: ["do", "does", "is"], ans: 1, explain: "She (三單) 用 does not。" }
             ]
         },
         {
@@ -333,24 +411,77 @@
             desc: "Be + V-ing 表示正在發生的動作。",
             tag: "國一動詞",
             tagClass: "tag-g1",
-            concept: "正在做 = Be動詞 + V-ing。缺一不可！",
+            concept: "正在做 = Be動詞 + V-ing。缺一不可！關鍵字：Look!, Listen!, now, right now。",
             questions: [
                 { q: "Look! He is ___.", options: ["run", "running", "runs"], ans: 1, explain: "is 後面接 ing (字尾單一子音重複 n)。" },
                 { q: "Are they ___ TV?", options: ["watch", "watching", "watches"], ans: 1, explain: "Are 後面接 V-ing。" },
-                { q: "What ___ you doing?", options: ["do", "are", "can"], ans: 1, explain: "doing 暗示進行式，搭配 are。" }
+                { q: "What ___ you doing?", options: ["do", "are", "can"], ans: 1, explain: "doing 暗示進行式，搭配 are。" },
+                { q: "I am ___ a letter now.", options: ["write", "wrote", "writing"], ans: 2, explain: "am 後面接 V-ing (字尾 e 去掉)。" },
+                { q: "She ___ sleeping right now.", options: ["is", "does", "do"], ans: 0, explain: "Sleeping 暗示進行式，She 用 is。" },
+                { q: "They ___ playing in the park.", options: ["is", "are", "do"], ans: 1, explain: "They 複數用 are。" },
+                { q: "Listen! The baby is ___.", options: ["cry", "cries", "crying"], ans: 2, explain: "is 後面接 V-ing。" },
+                { q: "We are ___ dinner.", options: ["eat", "eating", "eats"], ans: 1, explain: "are 後面接 V-ing。" },
+                { q: "Is the dog ___ the bone?", options: ["bury", "burying", "buries"], ans: 1, explain: "Is 後面接 V-ing。" },
+                { q: "The boys ___ swimming in the river.", options: ["is", "are", "do"], ans: 1, explain: "The boys 複數用 are。" },
+                { q: "He is ___ on the sofa.", options: ["lie", "lying", "lies"], ans: 1, explain: "lie 變 V-ing 為 lying (字尾 ie 變 y)。" },
+                { q: "Are you ___ your homework?", options: ["do", "doing", "does"], ans: 1, explain: "Are 後面接 V-ing。" },
+                { q: "The students ___ talking loudly.", options: ["is", "are", "was"], ans: 1, explain: "The students 複數用 are。" },
+                { q: "She ___ not helping her mom.", options: ["do", "is", "does"], ans: 1, explain: "helping 暗示進行式，用 is not。" },
+                { q: "What book ___ she reading?", options: ["is", "are", "does"], ans: 0, explain: "She 單數用 is。" },
+                { q: "I ___ waiting for the bus.", options: ["am", "is", "are"], ans: 0, explain: "I 專用 am。" },
+                { q: "They are ___ photos.", options: ["take", "taking", "takes"], ans: 1, explain: "take 變 V-ing 為 taking (字尾 e 去掉)。" },
+                { q: "Is it ___ outside?", options: ["rain", "rains", "raining"], ans: 2, explain: "Is 後面接 V-ing。" },
+                { q: "We ___ playing games now.", options: ["is", "are", "do"], ans: 1, explain: "We 複數用 are。" },
+                { q: "He is ___ to music.", options: ["listen", "listens", "listening"], ans: 2, explain: "is 後面接 V-ing。" },
+                { q: "My father ___ driving to work.", options: ["is", "are", "does"], ans: 0, explain: "My father 單數用 is。" },
+                { q: "What are you ___ about?", options: ["think", "thinks", "thinking"], ans: 2, explain: "are 後面接 V-ing。" },
+                { q: "The birds ___ singing in the trees.", options: ["is", "are", "was"], ans: 1, explain: "The birds 複數用 are。" },
+                { q: "Is your brother ___ the piano?", options: ["play", "plays", "playing"], ans: 2, explain: "Is 後面接 V-ing。" },
+                { q: "The guests ___ arriving now.", options: ["is", "are", "were"], ans: 1, explain: "The guests 複數用 are。" },
+                { q: "I'm ___ for my glasses.", options: ["look", "looks", "looking"], ans: 2, explain: "I'm 後面接 V-ing。" },
+                { q: "What ___ they talking about?", options: ["is", "are", "do"], ans: 1, explain: "They 複數用 are。" },
+                { q: "She is ___ a shower.", options: ["take", "takes", "taking"], ans: 2, explain: "take 變 V-ing 為 taking。" },
+                { q: "We are ___ in the garden.", options: ["work", "works", "working"], ans: 2, explain: "are 後面接 V-ing。" },
+                { q: "Is he ___ a good time?", options: ["have", "has", "having"], ans: 2, explain: "have 變 V-ing 為 having。" }
             ]
         },
         {
             title: "L5. 存在句與數量",
-            desc: "There is/are 與 How many/much。",
+            desc: "**there is/are** 與 How many/much，以及數量詞。",
             tag: "國一進階",
             tagClass: "tag-g1",
-            concept: "There is + 單數/不可數。There are + 複數。Many接可數，Much接不可數。",
+            concept: "**There is** + 單數/不可數。**There are** + 複數。**Many/A few**接可數，**Much/A little**接不可數。",
             questions: [
                 { q: "There ___ a book on the desk.", options: ["is", "are", "have"], ans: 0, explain: "a book 單數用 is。" },
                 { q: "There ___ many people here.", options: ["is", "are", "has"], ans: 1, explain: "people 是複數，用 are。" },
                 { q: "How ___ water do you need?", options: ["many", "much", "long"], ans: 1, explain: "Water 不可數，用 much。" },
-                { q: "How ___ apples are there?", options: ["many", "much", "old"], ans: 0, explain: "Apples 可數，用 many。" }
+                { q: "How ___ apples are there?", options: ["many", "much", "old"], ans: 0, explain: "Apples 可數，用 many。" },
+                { q: "There ___ no money left.", options: ["is", "are", "were"], ans: 0, explain: "Money 不可數，用 is。" },
+                { q: "___ there any chairs in the room?", options: ["Is", "Are", "Does"], ans: 1, explain: "Chairs 複數，用 Are。" },
+                { q: "I have only ___ friends in this city.", options: ["many", "a little", "a few"], ans: 2, explain: "friends 可數，用 a few (少數的)。" },
+                { q: "She drinks ___ coffee every morning.", options: ["many", "a little", "a few"], ans: 1, explain: "coffee 不可數，用 a little (少量的)。" },
+                { q: "There ___ a cat and two dogs in the yard.", options: ["is", "are", "was"], ans: 0, explain: "以最靠近的 a cat (單數) 為準，用 is。" },
+                { q: "___ there a test tomorrow?", options: ["Are", "Is", "Were"], ans: 1, explain: "a test 單數，用 Is。" },
+                { q: "There ___ nothing we can do.", options: ["is", "are", "were"], ans: 0, explain: "Nothing 視為單數，用 is。" },
+                { q: "We have too ___ homework.", options: ["many", "much", "a few"], ans: 1, explain: "Homework 不可數，用 much。" },
+                { q: "There ___ a lot of cars on the road.", options: ["is", "are", "was"], ans: 1, explain: "cars 複數，用 are。" },
+                { q: "I saw ___ students running.", options: ["many", "much", "a little"], ans: 0, explain: "students 可數，用 many。" },
+                { q: "There ___ a girl sitting over there.", options: ["are", "is", "were"], ans: 1, explain: "a girl 單數，用 is。" },
+                { q: "How ___ rice did you eat?", options: ["many", "much", "few"], ans: 1, explain: "rice 不可數，用 much。" },
+                { q: "There ___ three books on the table.", options: ["is", "are", "was"], ans: 1, explain: "three books 複數，用 are。" },
+                { q: "I need ___ help with this.", options: ["many", "a little", "a few"], ans: 1, explain: "help 不可數，用 a little。" },
+                { q: "There ___ a big problem.", options: ["are", "is", "were"], ans: 1, explain: "a big problem 單數，用 is。" },
+                { q: "How ___ pairs of shoes do you have?", options: ["many", "much", "little"], ans: 0, explain: "pairs of shoes 可數，用 many。" },
+                { q: "There ___ a phone and two laptops on the bed.", options: ["are", "is", "were"], ans: 1, explain: "最靠近的 a phone 單數，用 is。" },
+                { q: "___ there any juice left?", options: ["Are", "Is", "Were"], ans: 1, explain: "juice 不可數，用 Is。" },
+                { q: "He has so ___ money.", options: ["many", "much", "a few"], ans: 1, explain: "money 不可數，用 much。" },
+                { q: "There ___ still some hope.", options: ["is", "are", "were"], ans: 0, explain: "hope 不可數，用 is。" },
+                { q: "I brought ___ sandwiches.", options: ["much", "a little", "a few"], ans: 2, explain: "sandwiches 可數，用 a few。" },
+                { q: "There ___ two pencils in my bag.", options: ["is", "are", "was"], ans: 1, explain: "two pencils 複數，用 are。" },
+                { q: "___ there a doctor here?", options: ["Are", "Is", "Were"], ans: 1, explain: "a doctor 單數，用 Is。" },
+                { q: "We only have ___ time left.", options: ["many", "a little", "a few"], ans: 1, explain: "time 不可數，用 a little。" },
+                { q: "There ___ nothing wrong.", options: ["are", "is", "were"], ans: 1, explain: "Nothing 視為單數，用 is。" },
+                { q: "How ___ friends does she have?", options: ["many", "much", "little"], ans: 0, explain: "friends 可數，用 many。" }
             ]
         },
         // --- 國二 (變化) ---
@@ -359,11 +490,38 @@
             desc: "Was 與 Were 的時光機。",
             tag: "國二基礎",
             tagClass: "tag-g2",
-            concept: "am/is 變 was，are 變 were。關鍵字：Yesterday, Last night。",
+            concept: "am/is 變 **was**，are 變 **were**。關鍵字：Yesterday, Last night, then。",
             questions: [
                 { q: "I ___ sick yesterday.", options: ["am", "was", "were"], ans: 1, explain: "Yesterday 過去式，I 用 was。" },
                 { q: "They ___ at the zoo last week.", options: ["are", "was", "were"], ans: 2, explain: "Last week 過去式，They 用 were。" },
-                { q: "___ she happy then?", options: ["Was", "Were", "Did"], ans: 0, explain: "She 單數用 Was 開頭。" }
+                { q: "___ she happy then?", options: ["Was", "Were", "Did"], ans: 0, explain: "She 單數用 Was 開頭。" },
+                { q: "We ___ not home two hours ago.", options: ["was", "were", "are"], ans: 1, explain: "Two hours ago 過去式，We 複數用 were。" },
+                { q: "My dog ___ small last year.", options: ["is", "was", "were"], ans: 1, explain: "Last year 過去式，My dog 單數用 was。" },
+                { q: "The weather ___ very hot yesterday.", options: ["is", "was", "were"], ans: 1, explain: "The weather 單數，過去式用 was。" },
+                { q: "Where ___ you last night?", options: ["was", "were", "are"], ans: 1, explain: "Last night 過去式，You 搭配 were。" },
+                { q: "The cakes ___ delicious.", options: ["was", "were", "is"], ans: 1, explain: "The cakes 複數，過去式用 were。" },
+                { q: "I ___ born in 2000.", options: ["am", "was", "were"], ans: 1, explain: "過去式，I 用 was。" },
+                { q: "The boys ___ very tired after the game.", options: ["was", "were", "are"], ans: 1, explain: "The boys 複數，過去式用 were。" },
+                { q: "He ___ a baby then.", options: ["is", "was", "were"], ans: 1, explain: "Then 過去式，He 單數用 was。" },
+                { q: "___ the students quiet during the class?", options: ["Was", "Were", "Are"], ans: 1, explain: "The students 複數，用 Were。" },
+                { q: "My parents ___ in the hospital yesterday.", options: ["was", "were", "are"], ans: 1, explain: "My parents 複數，用 were。" },
+                { q: "It ___ a sunny day two days ago.", options: ["is", "was", "were"], ans: 1, explain: "It 單數，過去式用 was。" },
+                { q: "We ___ not late for school.", options: ["was", "were", "are"], ans: 1, explain: "We 複數，用 were。" },
+                { q: "Who ___ the winner last time?", options: ["was", "were", "is"], ans: 0, explain: "Who/The winner 單數，用 was。" },
+                { q: "The test ___ easy, but I failed.", options: ["was", "were", "is"], ans: 0, explain: "The test 單數，用 was。" },
+                { q: "Why ___ you crying?", options: ["was", "were", "are"], ans: 1, explain: "You 搭配 were。" },
+                { q: "She ___ my neighbor ten years ago.", options: ["is", "was", "were"], ans: 1, explain: "Ten years ago 過去式，She 單數用 was。" },
+                { q: "The food ___ not enough for everyone.", options: ["was", "were", "is"], ans: 0, explain: "The food 不可數，用 was。" },
+                { q: "___ the movie interesting?", options: ["Was", "Were", "Is"], ans: 0, explain: "The movie 單數，用 Was。" },
+                { q: "They ___ not good at math.", options: ["was", "were", "are"], ans: 1, explain: "They 複數，用 were。" },
+                { q: "It ___ a difficult time for us.", options: ["is", "was", "were"], ans: 1, explain: "It 單數，用 was。" },
+                { q: "You ___ a great singer.", options: ["was", "were", "are"], ans: 1, explain: "You 搭配 were。" },
+                { q: "We ___ young and full of energy.", options: ["was", "were", "are"], ans: 1, explain: "We 複數，用 were。" },
+                { q: "The street ___ busy then.", options: ["is", "was", "were"], ans: 1, explain: "The street 單數，用 was。" },
+                { q: "I ___ absent from school.", options: ["am", "was", "were"], ans: 1, explain: "I 用 was。" },
+                { q: "The boxes ___ empty.", options: ["was", "were", "is"], ans: 1, explain: "The boxes 複數，用 were。" },
+                { q: "___ he ready to go?", options: ["Were", "Was", "Is"], ans: 1, explain: "He 單數，用 Was。" },
+                { q: "They ___ playing outside at three.", options: ["was", "were", "are"], ans: 1, explain: "They 複數，用 were。" }
             ]
         },
         {
@@ -371,122 +529,438 @@
             desc: "Did 與動詞的過去變化。",
             tag: "國二核心",
             tagClass: "tag-g2",
-            concept: "疑問否定找 Did。Did 出現動詞回原形。注意不規則變化 (go→went)。",
+            concept: "疑問否定找 **Did**。Did 出現動詞回原形。注意不規則變化 (go→went, see→saw)。",
             questions: [
                 { q: "He ___ basketball yesterday.", options: ["play", "played", "plays"], ans: 1, explain: "過去肯定句加 ed。" },
                 { q: "We ___ to Taipei last year.", options: ["go", "went", "goes"], ans: 1, explain: "Go 的過去式是 Went。" },
                 { q: "Did you ___ him?", options: ["see", "saw", "seeing"], ans: 0, explain: "Did 出現，動詞用原形 see。" },
-                { q: "I didn't ___ dinner.", options: ["eat", "ate", "eaten"], ans: 0, explain: "didn't 出現，動詞用原形 eat。" }
+                { q: "I didn't ___ dinner.", options: ["eat", "ate", "eaten"], ans: 0, explain: "didn't 出現，動詞用原形 eat。" },
+                { q: "They ___ here ten minutes ago.", options: ["comes", "came", "come"], ans: 1, explain: "Come 的過去式是 Came。" },
+                { q: "She ___ not tell me the truth.", options: ["do", "did", "does"], ans: 1, explain: "過去否定句用 did not。" },
+                { q: "What time did you ___ up?", options: ["get", "got", "getting"], ans: 0, explain: "Did 出現，動詞回原形 get。" },
+                { q: "My father ___ me a story last night.", options: ["tell", "told", "tells"], ans: 1, explain: "Tell 的過去式是 Told。" },
+                { q: "Did he ___ your question?", options: ["answer", "answered", "answers"], ans: 0, explain: "Did 出現，動詞回原形 answer。" },
+                { q: "I ___ a new bike last month.", options: ["buy", "bought", "buys"], ans: 1, explain: "Buy 的過去式是 Bought。" },
+                { q: "She ___ happy when she heard the news.", options: ["is", "was", "be"], ans: 1, explain: "Be 動詞過去式用 was。" },
+                { q: "We ___ to the radio this morning.", options: ["listen", "listened", "listening"], ans: 1, explain: "規則動詞過去式加 ed。" },
+                { q: "They didn't ___ the movie.", options: ["like", "liked", "likes"], ans: 0, explain: "didn't 出現，動詞回原形 like。" },
+                { q: "Who ___ the windows?", options: ["broke", "break", "broken"], ans: 0, explain: "Break 的過去式是 Broke。" },
+                { q: "Where did he ___ the car?", options: ["park", "parked", "parking"], ans: 0, explain: "Did 出現，動詞回原形 park。" },
+                { q: "I ___ home late last night.", options: ["goes", "went", "go"], ans: 1, explain: "Go 的過去式是 Went。" },
+                { q: "She ___ a great job on the report.", options: ["did", "do", "doing"], ans: 0, explain: "Do 的過去式是 Did。" },
+                { q: "Did you ___ your brother yesterday?", options: ["help", "helped", "helps"], ans: 0, explain: "Did 出現，動詞回原形 help。" },
+                { q: "He ___ the race in 2020.", options: ["wins", "won", "win"], ans: 1, explain: "Win 的過去式是 Won。" },
+                { q: "We didn't ___ a word.", options: ["say", "said", "saying"], ans: 0, explain: "didn't 出現，動詞回原形 say。" },
+                { q: "The rain ___ suddenly.", options: ["stop", "stopped", "stopping"], ans: 1, explain: "規則動詞過去式加 ed。" },
+                { q: "What did you ___ for dinner?", options: ["have", "had", "having"], ans: 0, explain: "Did 出現，動詞回原形 have。" },
+                { q: "The students ___ all the candy.", options: ["ate", "eat", "eats"], ans: 0, explain: "Eat 的過去式是 Ate。" },
+                { q: "Did she ___ the phone?", options: ["call", "called", "calls"], ans: 0, explain: "Did 出現，動詞回原形 call。" },
+                { q: "I ___ my wallet this morning.", options: ["lost", "lose", "loses"], ans: 0, explain: "Lose 的過去式是 Lost。" },
+                { q: "He ___ TV all day long.", options: ["watch", "watched", "watches"], ans: 1, explain: "規則動詞過去式加 ed。" },
+                { q: "They ___ not agree with us.", options: ["do", "did", "does"], ans: 1, explain: "過去否定句用 did not。" },
+                { q: "I ___ a cup of coffee.", options: ["drink", "drank", "drunk"], ans: 1, explain: "Drink 的過去式是 Drank。" },
+                { q: "Did they ___ to the concert?", options: ["go", "went", "going"], ans: 0, explain: "Did 出現，動詞回原形 go。" },
+                { q: "She ___ the answer to the question.", options: ["know", "knew", "known"], ans: 1, explain: "Know 的過去式是 Knew。" }
             ]
         },
         {
-            title: "L8. 未來式",
-            desc: "Will 與 Be going to。",
+            title: "L8. 未來式與時間表達",
+            desc: "**未來簡單式** Will 與 Be going to，**未來時間的寫法**。",
             tag: "國二時態",
             tagClass: "tag-g2",
-            concept: "will + 原形動詞 = be going to + 原形動詞。",
+            concept: "**will** + 原形動詞 = **be going to** + 原形動詞。**未來時間的寫法**：tomorrow, next week, in three days, soon。",
             questions: [
                 { q: "I ___ call you later.", options: ["will", "am", "going"], ans: 0, explain: "will 後接原形，表示將要。" },
                 { q: "He is ___ to buy a car.", options: ["go", "going", "will"], ans: 1, explain: "is going to 片語。" },
-                { q: "They will ___ busy tomorrow.", options: ["be", "are", "is"], ans: 0, explain: "will 後面一定要原形，形容詞前要補 be。" }
+                { q: "They will ___ busy tomorrow.", options: ["be", "are", "is"], ans: 0, explain: "will 後面一定要原形，形容詞前要補 be。" },
+                { q: "She will leave ___ three days.", options: ["after", "in", "for"], ans: 1, explain: "in + 一段時間 = 於 (未來) ... 之後。" },
+                { q: "We ___ have a party next Saturday.", options: ["is going to", "are going to", "will to"], ans: 1, explain: "We 搭配 are going to。" },
+                { q: "It ___ rain soon.", options: ["will", "is", "is going"], ans: 0, explain: "will 後接原形，常用來預測天氣。" },
+                { q: "I am going ___ eat a big dinner.", options: ["to", "will", "be"], ans: 0, explain: "be going to 後面接原形動詞。" },
+                { q: "When ___ you visit your grandmother?", options: ["do", "will", "are"], ans: 1, explain: "未來式問句用 will。" },
+                { q: "They are not going to ___ the job.", options: ["finish", "finished", "finishing"], ans: 0, explain: "be going to 後面接原形動詞。" },
+                { q: "I think I ___ pass the test.", options: ["am going to", "will", "am"], ans: 1, explain: "I think (主觀判斷) 常用 will。" },
+                { q: "The meeting ___ start at 9 a.m. tomorrow.", options: ["will", "is going", "is"], ans: 0, explain: "will 後接原形。" },
+                { q: "What ___ you going to do tonight?", options: ["will", "are", "do"], ans: 1, explain: "be going to 搭配 Be 動詞 are。" },
+                { q: "She ___ travel abroad next month.", options: ["will", "is going", "is"], ans: 0, explain: "will 後接原形。" },
+                { q: "I ___ meet you at the station.", options: ["will to", "am going to", "am will"], ans: 1, explain: "I 搭配 am going to。" },
+                { q: "We hope it ___ snow next week.", options: ["will", "is going to", "is"], ans: 0, explain: "hope 後面的子句用 will。" },
+                { q: "They ___ arrive tomorrow morning.", options: ["will", "are going", "is"], ans: 0, explain: "will 後接原形。" },
+                { q: "He is ___ to be a doctor.", options: ["will", "going", "go"], ans: 1, explain: "is going to 片語。" },
+                { q: "___ you be at home tomorrow?", options: ["Are", "Will", "Do"], ans: 1, explain: "未來式問句用 Will。" },
+                { q: "The concert ___ be held next Friday.", options: ["will", "is going", "is"], ans: 0, explain: "will 後接原形。" },
+                { q: "I ___ probably be late.", options: ["will", "am going to", "am"], ans: 0, explain: "probably (可能) 常用 will。" },
+                { q: "She ___ come home late.", options: ["will", "is going to", "both"], ans: 2, explain: "will 和 is going to 都可，選 both。" },
+                { q: "We ___ not finish the task today.", options: ["will to", "will", "are going"], ans: 1, explain: "will not (won't) 後接原形。" },
+                { q: "He is going to ___ his father's company.", options: ["join", "joins", "joining"], ans: 0, explain: "be going to 後面接原形動詞。" },
+                { q: "They ___ not call us back.", options: ["will", "are going to", "both"], ans: 2, explain: "will not 和 are not going to 都可，選 both。" },
+                { q: "I ___ leave for the airport at 6 a.m.", options: ["will", "am going to", "both"], ans: 2, explain: "有確切計畫或決定，兩者皆可。" },
+                { q: "When ___ they going to move?", options: ["will", "are", "do"], ans: 1, explain: "be going to 搭配 Be 動詞 are。" },
+                { q: "The bus ___ arrive in five minutes.", options: ["will", "is going to", "both"], ans: 2, explain: "兩者皆可，表示預測。" },
+                { q: "I promise I ___ tell anyone.", options: ["will not", "am not going to", "do not"], ans: 0, explain: "promise (承諾) 常用 will。" },
+                { q: "She ___ be eighteen next year.", options: ["will", "is going to", "both"], ans: 2, explain: "將要/會是，兩者皆可。" },
+                { q: "We ___ have a meeting at 2 p.m. later.", options: ["will", "are going to", "both"], ans: 2, explain: "表示計畫或預定發生的事，兩者皆可。" }
             ]
         },
         {
             title: "L9. 形容詞比較級與最高級",
-            desc: "er/more 與 the est/most。",
+            desc: "er/**more** 與 the est/**most**。",
             tag: "國二進階",
             tagClass: "tag-g2",
-            concept: "兩者比較用 er/more + than。三者以上最高級用 the + est/most。",
+            concept: "兩者比較用 er/**more** + than。三者以上最高級用 **the** + est/**most**。**原級比較**：as...as (一樣...)",
             questions: [
                 { q: "Wait for me! You are ___ than me.", options: ["fast", "faster", "fastest"], ans: 1, explain: "than 前面用比較級 faster。" },
                 { q: "English is ___ than math.", options: ["easy", "easier", "more easy"], ans: 1, explain: "easy 去 y 改 ier。" },
                 { q: "Who is the ___ student in class?", options: ["tall", "taller", "tallest"], ans: 2, explain: "in class 範圍內最...，有 the 用最高級。" },
-                { q: "The movie is the most ___.", options: ["good", "better", "popular"], ans: 2, explain: "most 搭配長音節形容詞 popular。" }
+                { q: "The movie is the most ___.", options: ["good", "better", "popular"], ans: 2, explain: "most 搭配長音節形容詞 popular。" },
+                { q: "She runs as ___ as her brother.", options: ["fast", "faster", "fastest"], ans: 0, explain: "as...as 中間用原級。" },
+                { q: "This cake is ___ than that one.", options: ["delicious", "more delicious", "most delicious"], ans: 1, explain: "長音節用 more + than。" },
+                { q: "He is the ___ person I know.", options: ["smart", "smarter", "smartest"], ans: 2, explain: "最高級用 the smartest。" },
+                { q: "My dog is ___ than yours.", options: ["big", "bigger", "biggest"], ans: 1, explain: "單音節字尾重複子音加 er (bigger)。" },
+                { q: "This is the ___ building in the city.", options: ["tall", "taller", "tallest"], ans: 2, explain: "最高級用 the tallest。" },
+                { q: "She is not as ___ as her sister.", options: ["pretty", "prettier", "prettiest"], ans: 0, explain: "as...as 中間用原級。" },
+                { q: "Which is ___, an apple or a pear?", options: ["sweet", "sweeter", "sweetest"], ans: 1, explain: "兩者比較用比較級 sweeter。" },
+                { q: "He is ___ at math than at science.", options: ["good", "better", "best"], ans: 1, explain: "than 前面用不規則比較級 better。" },
+                { q: "This is the ___ way to solve the problem.", options: ["simple", "simpler", "simplest"], ans: 2, explain: "最高級用 the simplest。" },
+                { q: "The traffic today is ___ than yesterday.", options: ["bad", "worse", "worst"], ans: 1, explain: "than 前面用不規則比較級 worse。" },
+                { q: "She is the ___ of the three girls.", options: ["beautiful", "more beautiful", "most beautiful"], ans: 2, explain: "三者最高級用 the most beautiful。" },
+                { q: "Nothing is ___ important than health.", options: ["more", "most", "as"], ans: 0, explain: "more... than (比...更重要)。" },
+                { q: "He speaks English ___ than I do.", options: ["fluent", "more fluent", "more fluently"], ans: 2, explain: "修飾動詞用副詞比較級 more fluently。" },
+                { q: "Who is ___ at singing, Tom or Mary?", options: ["good", "better", "best"], ans: 1, explain: "兩人比較用比較級 better。" },
+                { q: "She is ___ patient than her classmates.", options: ["little", "less", "least"], ans: 1, explain: "less + (長)形容詞 + than (比較不...)" },
+                { q: "This summer is the ___ I've ever had.", options: ["hot", "hotter", "hottest"], ans: 2, explain: "最高級用 the hottest。" },
+                { q: "I feel ___ today than yesterday.", options: ["well", "better", "best"], ans: 1, explain: "than 前面用比較級 better。" },
+                { q: "The baby is as ___ as a mouse.", options: ["quiet", "quieter", "quietest"], ans: 0, explain: "as...as 中間用原級。" },
+                { q: "Of all the mountains, this is the ___.", options: ["high", "higher", "highest"], ans: 2, explain: "最高級用 the highest。" },
+                { q: "I have ___ free time than before.", options: ["little", "less", "least"], ans: 1, explain: "time 不可數，比較級用 less。" },
+                { q: "The new phone is much ___ expensive.", options: ["more", "most", "as"], ans: 0, explain: "much/far/even 等修飾比較級 more expensive。" },
+                { q: "He is the ___ boy in the class.", options: ["popular", "more popular", "most popular"], ans: 2, explain: "最高級用 the most popular。" },
+                { q: "She drives ___ than her husband.", options: ["careful", "more careful", "more carefully"], ans: 2, explain: "修飾動詞用副詞比較級 more carefully。" },
+                { q: "The weather is getting ___.", options: ["warm", "warmer and warmer", "warmest"], ans: 1, explain: "越來越... 用 比較級 and 比較級。" },
+                { q: "It's the ___ difficult math problem.", options: ["more", "most", "many"], ans: 1, explain: "有 the 用最高級 most。" },
+                { q: "He is ___ than just smart.", options: ["clever", "cleverer", "more clever"], ans: 1, explain: "單音節/短音節用 cleverer。" }
             ]
         },
         {
-            title: "L10. 動名詞 vs 不定詞",
-            desc: "Like V-ing 還是 Want to V？",
+            title: "L10. 動名詞 (V-ing) vs 不定詞 (To V)",
+            desc: "**動名詞 V-ing**/**Ving 片語**與 **To V 不定詞** 的使用。",
             tag: "國二重點",
             tagClass: "tag-g2",
-            concept: "Enjoy/Practice/Finish + V-ing。<br>Want/Need/Plan + to V。<br>Like/Love/Start 兩者皆可。",
+            concept: "Enjoy/Practice/Finish + **V-ing**。<br>Want/Need/Plan + **to V 不定詞**。<br>**動名詞**可作主詞(e.g., **Swimming** is fun)。",
             questions: [
                 { q: "I enjoy ___ English.", options: ["learn", "learning", "to learn"], ans: 1, explain: "Enjoy 後面必接 V-ing。" },
                 { q: "He wants ___ a doctor.", options: ["be", "being", "to be"], ans: 2, explain: "Want 後面必接 to V。" },
                 { q: "She practices ___ the piano.", options: ["play", "playing", "to play"], ans: 1, explain: "Practice 後面必接 V-ing。" },
-                { q: "They decided ___ home.", options: ["go", "going", "to go"], ans: 2, explain: "Decide (決定) 後面接 to V。" }
+                { q: "They decided ___ home.", options: ["go", "going", "to go"], ans: 2, explain: "Decide (決定) 後面接 to V。" },
+                { q: "___ English takes time.", options: ["Study", "Studying", "To study"], ans: 1, explain: "動名詞 Studying 作主詞 (Ving 片語)。" },
+                { q: "I hope ___ you soon.", options: ["see", "seeing", "to see"], ans: 2, explain: "Hope (希望) 後面接 to V。" },
+                { q: "He stopped ___ when the teacher came in.", options: ["talk", "talking", "to talk"], ans: 1, explain: "Stop + V-ing (停止做某事)。" },
+                { q: "I stopped ___ to the post office.", options: ["go", "going", "to go"], ans: 2, explain: "Stop + to V (停下來去做某事)。" },
+                { q: "We avoided ___ him the bad news.", options: ["tell", "telling", "to tell"], ans: 1, explain: "Avoid (避免) 後面接 V-ing。" },
+                { q: "It's hard ___ alone.", options: ["live", "living", "to live"], ans: 2, explain: "It is + adj + to V (to live 作真主詞)。" },
+                { q: "I finished ___ my homework.", options: ["do", "doing", "to do"], ans: 1, explain: "Finish 後面接 V-ing。" },
+                { q: "She loves ___ a movie.", options: ["watch", "watching", "both"], ans: 2, explain: "Love 後面 V-ing 或 to V 皆可。" },
+                { q: "He needs ___ a new coat.", options: ["buy", "buying", "to buy"], ans: 2, explain: "Need 後面接 to V。" },
+                { q: "Would you mind ___ the window?", options: ["close", "closing", "to close"], ans: 1, explain: "Mind (介意) 後面接 V-ing。" },
+                { q: "He pretended ___ sick.", options: ["be", "being", "to be"], ans: 2, explain: "Pretend (假裝) 後面接 to V。" },
+                { q: "___ is believing.", options: ["See", "Seeing", "To see"], ans: 1, explain: "動名詞 Seeing 作主詞。" },
+                { q: "I remember ___ him before.", options: ["meet", "meeting", "to meet"], ans: 1, explain: "Remember + V-ing (記得做過的事)。" },
+                { q: "Don't forget ___ the door.", options: ["lock", "locking", "to lock"], ans: 2, explain: "Forget + to V (忘記要做的事)。" },
+                { q: "We spent the whole night ___.", options: ["talk", "talking", "to talk"], ans: 1, explain: "spend time + V-ing (花費時間做...)" },
+                { q: "She tried ___ the heavy box.", options: ["lift", "lifting", "to lift"], ans: 2, explain: "Try + to V (試圖/努力做某事)。" },
+                { q: "I tried ___ the light to see if it worked.", options: ["turn on", "turning on", "to turn on"], ans: 1, explain: "Try + V-ing (嘗試做某事)。" },
+                { q: "It's important ___ healthy.", options: ["eat", "eating", "to eat"], ans: 2, explain: "It is + adj + to V。" },
+                { q: "___ a foreign language is not easy.", options: ["Learn", "Learning", "To learn"], ans: 1, explain: "動名詞 Learning 作主詞。" },
+                { q: "They risked ___ their money.", options: ["lose", "losing", "to lose"], ans: 1, explain: "Risk (冒險) 後面接 V-ing。" },
+                { q: "He suggested ___ out for dinner.", options: ["go", "going", "to go"], ans: 1, explain: "Suggest (建議) 後面接 V-ing。" },
+                { q: "I feel like ___ a movie.", options: ["watch", "watching", "to watch"], ans: 1, explain: "feel like + V-ing (想要...)" },
+                { q: "We managed ___ the train.", options: ["catch", "catching", "to catch"], ans: 2, explain: "Manage (設法) 後面接 to V。" },
+                { q: "It's no use ___ about it.", options: ["worry", "worrying", "to worry"], ans: 1, explain: "It's no use + V-ing (做...沒用)。" },
+                { q: "He promised ___ me back.", options: ["call", "calling", "to call"], ans: 2, explain: "Promise (承諾) 後面接 to V。" },
+                { q: "The kids love ___ games.", options: ["play", "playing", "to play"], ans: 2, explain: "Love 後面 V-ing 或 to V 皆可，to play 是選項之一。" }
             ]
         },
         // --- 國三 (高階) ---
         {
-            title: "L11. 助動詞大全",
-            desc: "Can, Must, Should, Have to 用法。",
+            title: "L11. 助動詞大全 & 使役/授與動詞",
+            desc: "Can, Must, Should, Have to 用法與**使役動詞**/**授與動詞**。",
             tag: "國三必考",
             tagClass: "tag-g3",
-            concept: "所有助動詞(Can/Must/Should)後接原形。<br>Must = Have to (必須)。",
+            concept: "**助動詞** (Can/Must/Should) 後接原形。**使役動詞** (make, have, let) 後接原形。<br>**授與動詞** (give, buy) 後接雙受格。",
             questions: [
                 { q: "You ___ study hard.", options: ["should", "should to", "are"], ans: 0, explain: "Should (應該) 直接加原形。" },
                 { q: "He ___ to go now.", options: ["must", "has", "should"], ans: 1, explain: "有 to，所以是用 has to (必須)。Must 後不加 to。" },
-                { q: "I ___ swim.", options: ["can", "am", "can to"], ans: 0, explain: "Can (會/能夠) 加原形。" }
+                { q: "I ___ swim.", options: ["can", "am", "can to"], ans: 0, explain: "Can (會/能夠) 加原形。" },
+                { q: "My father let me ___ out.", options: ["go", "to go", "going"], ans: 0, explain: "使役動詞 let 後接原形動詞 go。" },
+                { q: "He bought ___ a new bag.", options: ["to me", "me", "I"], ans: 1, explain: "授與動詞 buy 後直接接人 (me)。" },
+                { q: "She made her brother ___ the dishes.", options: ["wash", "to wash", "washing"], ans: 0, explain: "使役動詞 make 後接原形動詞。" },
+                { q: "I ___ to clean the room today.", options: ["must", "have", "can"], ans: 1, explain: "I 搭配 have to (必須)。" },
+                { q: "You ___ better ask for help.", options: ["should", "had", "must"], ans: 1, explain: "had better + V (最好做...)" },
+                { q: "The teacher told ___ a story.", options: ["to us", "us", "we"], ans: 1, explain: "tell 是授與動詞，直接接人 (us)。" },
+                { q: "They helped us ___ the heavy box.", options: ["move", "to move", "both"], ans: 2, explain: "help 後面接原形或 to V 皆可。" },
+                { q: "He ___ be sick because he looks pale.", options: ["can", "may", "must"], ans: 2, explain: "Must (一定) 表示強烈推測。" },
+                { q: "I ___ take the exam if I don't want to.", options: ["must not", "don't have to", "shouldn't"], ans: 1, explain: "don't have to (不必) 表示沒有義務。" },
+                { q: "We ___ show respect to our elders.", options: ["may", "should", "can"], ans: 1, explain: "Should (應該) 表示義務或建議。" },
+                { q: "Could you ___ me a favor?", options: ["do", "to do", "doing"], ans: 0, explain: "Could 是助動詞，後接原形動詞 do。" },
+                { q: "She let the kids ___ TV.", options: ["watch", "to watch", "watching"], ans: 0, explain: "使役動詞 let 後接原形動詞。" },
+                { q: "He ___ speak three languages.", options: ["can", "is able", "is able to"], ans: 2, explain: "can = be able to。" },
+                { q: "I ___ give a second chance.", options: ["will", "will to", "am"], ans: 0, explain: "will 是助動詞，後接原形動詞。" },
+                { q: "We ___ buy a ticket to enter.", options: ["must", "must to", "have"], ans: 0, explain: "Must (必須) 直接加原形。" },
+                { q: "She ___ to clean up the room.", options: ["may", "has", "should"], ans: 1, explain: "She (三單) 搭配 has to (必須)。" },
+                { q: "They offered ___ help.", options: ["to us", "us", "our"], ans: 1, explain: "offer 是授與動詞，直接接人 (us)。" },
+                { q: "The boss had his secretary ___ the document.", options: ["type", "to type", "typing"], ans: 0, explain: "使役動詞 have 後接原形動詞。" },
+                { q: "You ___ not park here.", options: ["have to", "must", "don't have to"], ans: 1, explain: "Must not (禁止) 表示強烈禁止。" },
+                { q: "I ___ better apologize to her.", options: ["had", "have", "should"], ans: 0, explain: "had better (最好) 是固定片語。" },
+                { q: "She promised ___ a new phone.", options: ["me", "to me", "my"], ans: 0, explain: "promise 是授與動詞，直接接人 (me)。" },
+                { q: "The doctor made him ___ in bed.", options: ["stay", "to stay", "staying"], ans: 0, explain: "使役動詞 make 後接原形動詞。" },
+                { q: "You ___ borrow my car.", options: ["may", "must", "should"], ans: 0, explain: "May (可以) 表示允許。" },
+                { q: "We ___ go now, or we'll be late.", options: ["can", "may", "must"], ans: 2, explain: "Must (必須) 表示必要性。" },
+                { q: "He showed ___ his new computer.", options: ["us", "to us", "we"], ans: 0, explain: "show 是授與動詞，直接接人 (us)。" },
+                { q: "I ___ call my mother.", options: ["have to", "must", "both"], ans: 2, explain: "兩者皆可，表示義務或必要性。" },
+                { q: "Could you ___ me the salt?", options: ["pass", "to pass", "passing"], ans: 0, explain: "Could 是助動詞，後接原形動詞 pass。" }
             ]
         },
         {
-            title: "L12. 現在完成式",
-            desc: "Have/Has + p.p. 的經驗與持續。",
+            title: "L12. 現在完成式與附加問句",
+            desc: "**現在完成式** Have/Has + p.p. 與**附加問句**。",
             tag: "國三核心",
             tagClass: "tag-g3",
-            concept: "公式：Have/Has + p.p.<br>關鍵字：Since(自從), For(持續), Just, Yet, Ever。",
+            concept: "完成式：Have/Has + p.p. (經驗/持續)。關鍵字：Since(時間點), For(一段時間)。**附加問句**：前肯後否，前否後肯 (Be/助動詞/Have/Has)。",
             questions: [
                 { q: "I ___ been to Japan twice.", options: ["am", "did", "have"], ans: 2, explain: "been 是 be 的 p.p.，搭配 Have 形成完成式。" },
-                { q: "She has ___ lunch.", options: ["eat", "ate", "eaten"], ans: 2, explain: "Has 後面接 p.p. (eaten)。" },
-                { q: "We have lived here ___ ten years.", options: ["since", "for", "in"], ans: 1, explain: "Ten years 是一段時間，用 for。" },
-                { q: "He has studied ___ 2010.", options: ["since", "for", "ago"], ans: 0, explain: "2010 是時間點，用 since (自從)。" }
+                { q: "She has lived here ___ ten years.", options: ["since", "for", "in"], ans: 1, explain: "Ten years 是一段時間，用 for。" },
+                { q: "You are a student, ___?", options: ["are you", "do you", "aren't you"], ans: 2, explain: "前句 Be 動詞肯定 (are)，後用否定 (aren't you)。" },
+                { q: "He doesn't like it, ___?", options: ["does he", "is he", "don't he"], ans: 0, explain: "前句 Do 助動詞否定 (doesn't)，後用肯定 (does he)。" },
+                { q: "We haven't seen her ___ last month.", options: ["for", "since", "ago"], ans: 1, explain: "last month 是時間點，用 since (自從)。" },
+                { q: "They have ___ all the cookies.", options: ["eat", "ate", "eaten"], ans: 2, explain: "Have 後面接 p.p. (eaten)。" },
+                { q: "He has never ___ on a plane.", options: ["fly", "flown", "flew"], ans: 1, explain: "Never (從未) 搭配完成式 p.p. (flown)。" },
+                { q: "It has been raining ___ three hours.", options: ["since", "for", "in"], ans: 1, explain: "three hours 是一段時間，用 for。" },
+                { q: "She can swim, ___?", options: ["can't she", "doesn't she", "isn't she"], ans: 0, explain: "前句 Can 助動詞肯定，後用否定 (can't she)。" },
+                { q: "They won't come, ___?", options: ["will they", "won't they", "do they"], ans: 0, explain: "前句 will 否定 (won't)，後用肯定 (will they)。" },
+                { q: "I've ___ seen that movie.", options: ["yet", "just", "for"], ans: 1, explain: "just (剛剛) 放在 have/has 和 p.p.之間。" },
+                { q: "Has he finished the job ___?", options: ["just", "ever", "yet"], ans: 2, explain: "yet (尚未) 放在否定句或疑問句句尾。" },
+                { q: "You look tired. Have you ___ hard?", options: ["work", "worked", "working"], ans: 1, explain: "Have 後面接 p.p. (worked)。" },
+                { q: "The baby hasn't woken up ___.", options: ["just", "yet", "since"], ans: 1, explain: "yet (尚未) 放在否定句句尾。" },
+                { q: "You like pizza, ___?", options: ["do you", "don't you", "are you"], ans: 1, explain: "一般動詞肯定，後用 do 助動詞否定 (don't you)。" },
+                { q: "Let's go, ___?", options: ["will you", "shall we", "do we"], ans: 1, explain: "Let's 開頭的祈使句，附加問句用 shall we。" },
+                { q: "He has a lot of money, ___?", options: ["hasn't he", "doesn't he", "isn't he"], ans: 1, explain: "have 當『有』的一般動詞時，附加問句用 do/does 助動詞。" },
+                { q: "I have known him ___ 2018.", options: ["for", "since", "ago"], ans: 1, explain: "2018 是時間點，用 since。" },
+                { q: "They have already ___ dinner.", options: ["had", "have", "has"], ans: 0, explain: "Have 後面接 p.p. (had)。" },
+                { q: "Close the door, ___?", options: ["don't you", "will you", "do you"], ans: 1, explain: "一般祈使句，附加問句用 will you。" },
+                { q: "She has been sick ___ three days.", options: ["since", "for", "ago"], ans: 1, explain: "three days 是一段時間，用 for。" },
+                { q: "You haven't told me, ___?", options: ["have you", "do you", "did you"], ans: 0, explain: "前句 Have 助動詞否定，後用肯定 (have you)。" },
+                { q: "He rarely smiles, ___?", options: ["does he", "doesn't he", "is he"], ans: 0, explain: "rarely (幾乎不) 有否定意味，後用肯定 (does he)。" },
+                { q: "Nobody called, ___?", options: ["did they", "didn't they", "do they"], ans: 0, explain: "Nobody 有否定意味，代名詞用 they，後用肯定 (did they)。" },
+                { q: "I ___ never been to that restaurant.", options: ["am", "have", "did"], ans: 1, explain: "Never 搭配完成式 Have。" },
+                { q: "It has been ten years ___ I left.", options: ["for", "since", "ago"], ans: 1, explain: "It has been... since S + V-ed (自從...多久了)。" },
+                { q: "He finished his work, ___?", options: ["doesn't he", "didn't he", "hasn't he"], ans: 1, explain: "過去式肯定，後用 did 助動詞否定 (didn't he)。" },
+                { q: "You will come, ___?", options: ["won't you", "will you", "don't you"], ans: 0, explain: "前句 will 肯定，後用否定 (won't you)。" },
+                { q: "She has been here ___ an hour.", options: ["since", "for", "ago"], ans: 1, explain: "an hour 是一段時間，用 for。" },
+                { q: "There is a park nearby, ___?", options: ["is there", "isn't there", "does there"], ans: 1, explain: "主詞是 there，後用 isn't there。" }
             ]
         },
         {
-            title: "L13. 被動語態",
-            desc: "主詞被動作：Be + p.p. (+ by)。",
+            title: "L13. 關係代名詞與副詞",
+            desc: "**關係代名詞** (Who/Which/That) 與**關係副詞** (Where/When/Why)。",
             tag: "國三難點",
             tagClass: "tag-g3",
-            concept: "公式：Be動詞(注意時態) + p.p.。<br>口訣：主動變被動，位置交叉換。",
+            concept: "關代：**關係代名詞** (who, which, that, **whose**) 代替前面名詞，作主詞/受詞。關副：**關係副詞** (where, when, why) 代替介系詞+關代。",
             questions: [
-                { q: "The cake ___ eaten by him.", options: ["is", "has", "did"], ans: 0, explain: "被吃掉 = is eaten (Be + p.p.)。" },
-                { q: "The book was ___ by Mark.", options: ["wrote", "write", "written"], ans: 2, explain: "Was 後面接 p.p. (written)。" },
-                { q: "Homework must be ___.", options: ["do", "done", "did"], ans: 1, explain: "Must be 後面接 p.p. (done)。" }
+                { q: "The girl ___ is standing there is my sister.", options: ["which", "who", "when"], ans: 1, explain: "先行詞 The girl 是人，主格用 who (或 that)。" },
+                { q: "This is the school ___ I studied.", options: ["which", "where", "what"], ans: 1, explain: "先行詞 the school 是地點，在子句中作副詞 (在學校讀書)，用關係副詞 where。" },
+                { q: "I like the book ___ cover is yellow.", options: ["who", "whose", "which"], ans: 1, explain: "**whose** 後面接名詞 cover (它的封面)，是所有格關係代名詞。" },
+                { q: "She told me the reason ___ she left.", options: ["when", "which", "why"], ans: 2, explain: "reason 搭配關係副詞 why。" },
+                { q: "The man ___ I saw yesterday is my uncle.", options: ["who", "whom", "that"], ans: 2, explain: "I saw yesterday 是不完整子句 (缺受詞)，可用 that/which/whom (受格可省略)。" },
+                { q: "The day ___ we met was sunny.", options: ["where", "when", "which"], ans: 1, explain: "The day 是時間，用關係副詞 when。" },
+                { q: "I bought a gift ___ was cheap.", options: ["who", "whose", "which"], ans: 2, explain: "A gift 是物，主格用 which (或 that)。" },
+                { q: "The pencil ___ tip is broken is mine.", options: ["which", "whose", "that"], ans: 1, explain: "pencil 的筆尖，用所有格 whose。" },
+                { q: "Is this the restaurant ___ you had dinner?", options: ["which", "where", "what"], ans: 1, explain: "restaurant 是地點，用關係副詞 where。" },
+                { q: "I don't remember the time ___ I was a child.", options: ["where", "when", "which"], ans: 1, explain: "the time 是時間，用關係副詞 when。" },
+                { q: "The movie ___ you are watching is old.", options: ["who", "which", "whose"], ans: 1, explain: "The movie 是物，受格用 which (或 that，可省略)。" },
+                { q: "He is a student ___ works very hard.", options: ["who", "whom", "which"], ans: 0, explain: "works hard 是動詞，前面缺主詞，用主格 who。" },
+                { q: "Is there anything ___ I can do for you?", options: ["which", "what", "that"], ans: 2, explain: "anything 後面只能用 that。" },
+                { q: "He is the person to ___ I gave the money.", options: ["who", "whom", "that"], ans: 1, explain: "介系詞 to 後面要用受格 whom。" },
+                { q: "I know a place ___ you can relax.", options: ["which", "where", "when"], ans: 1, explain: "a place 是地點，用關係副詞 where。" },
+                { q: "The scientist ___ discovery changed the world.", options: ["who", "whose", "whom"], ans: 1, explain: "scientist 的發現，用所有格 whose。" },
+                { q: "The shoes ___ I wore yesterday are dirty.", options: ["who", "that", "whose"], ans: 1, explain: "The shoes 是物，受格用 that (可省略)。" },
+                { q: "That is the house ___ walls are blue.", options: ["which", "that", "whose"], ans: 2, explain: "house 的牆壁，用所有格 whose。" },
+                { q: "The year ___ she graduated was 2020.", options: ["where", "when", "which"], ans: 1, explain: "The year 是時間，用關係副詞 when。" },
+                { q: "I have a friend ___ lives in Canada.", options: ["whom", "who", "which"], ans: 1, explain: "lives 是動詞，前面缺主詞，用主格 who。" },
+                { q: "The rule is simple, ___ is good.", options: ["which", "that", "who"], ans: 0, explain: "which 指代前面的整個子句。" },
+                { q: "This is the spot ___ the accident happened.", options: ["which", "where", "that"], ans: 1, explain: "The spot 是地點，用關係副詞 where。" },
+                { q: "She has three dogs, ___ are all very cute.", options: ["that", "who", "which"], ans: 2, explain: "非限定用法 (有逗號)，不可用 that。" },
+                { q: "The girl with ___ I work is nice.", options: ["who", "whom", "whose"], ans: 1, explain: "介系詞 with 後面要用受格 whom。" },
+                { q: "I hate the day ___ I have to go to the dentist.", options: ["where", "when", "which"], ans: 1, explain: "the day 是時間，用關係副詞 when。" },
+                { q: "That is the song ___ everyone likes.", options: ["who", "which", "whose"], ans: 1, explain: "受格 which 可省略，但 which 是選項之一。" },
+                { q: "The reason ___ he was late is unknown.", options: ["when", "why", "what"], ans: 1, explain: "The reason 搭配關係副詞 why。" },
+                { q: "The boy ___ parents are teachers is smart.", options: ["who", "whose", "whom"], ans: 1, explain: "boy 的父母，用所有格 whose。" },
+                { q: "The city ___ I was born is very old.", options: ["which", "where", "when"], ans: 1, explain: "The city 是地點，用關係副詞 where。" },
+                { q: "Is he the one ___ you were talking about?", options: ["who", "whose", "what"], ans: 0, explain: "受格 who 可省略，但 who 是選項之一。" }
             ]
         },
         {
-            title: "L14. 名詞子句",
-            desc: "I know that... / I don't know who...",
+            title: "L14. 名詞子句與間接問句",
+            desc: "**that子句**、**wh-名詞子句**與**疑問詞引導的名詞子句/wh-間接問句**。",
             tag: "國三進階",
             tagClass: "tag-g3",
-            concept: "子句當名詞用。注意：子句內不再倒裝！<br>錯：I know who is he.<br>對：I know who he is.",
+            concept: "子句當名詞用 (作主詞/受詞)。注意：**wh-間接問句**不倒裝！ (主詞+動詞)<br>I believe **that** S+V. / I don't know **who** S+V. / I wonder **whether** S+V. (**whether** 作是否)。",
             questions: [
                 { q: "I think ___ he is a good man.", options: ["that", "what", "which"], ans: 0, explain: "think 後面接 that 子句。" },
-                { q: "Do you know who ___?", options: ["is she", "she is", "does she"], ans: 1, explain: "名詞子句不倒裝，先主詞 she 再動詞 is。" },
-                { q: "I don't know where ___.", options: ["does he live", "he lives", "he live"], ans: 1, explain: "子句回復直述句：he lives。" }
+                { q: "Do you know where ___?", options: ["is she", "she is", "does she"], ans: 1, explain: "**間接問句**不倒裝，先主詞 she 再動詞 is。" },
+                { q: "I don't know ___ he left.", options: ["when did", "when he did", "when he left"], ans: 2, explain: "疑問詞當**名詞子句**時，回復直述句：when he left。" },
+                { q: "The question is **whether** ___.", options: ["he will come", "will he come", "comes he"], ans: 0, explain: "**Whether** 意思是「是否」，引導名詞子句，不倒裝。" },
+                { q: "It is true ___ we won the game.", options: ["what", "that", "which"], ans: 1, explain: "It is true 後面用 that 子句 (that 作真主詞)。" },
+                { q: "Tell me ___ you want.", options: ["that", "what", "how"], ans: 1, explain: "動詞 want 缺受詞，用 what 引導名詞子句 (你想要的東西)。" },
+                { q: "I wonder ___ he can help us.", options: ["what", "if", "when"], ans: 1, explain: "wonder (想知道) 後面用 if/whether (是否)。" },
+                { q: "We found out ___ he was hiding.", options: ["where was he", "where he was", "what he was"], ans: 1, explain: "**間接問句**不倒裝，用 where he was。" },
+                { q: "___ he is honest is important.", options: ["What", "That", "Which"], ans: 1, explain: "That 子句作主詞，指『他很誠實這件事』。" },
+                { q: "The news ___ he failed the test is false.", options: ["that", "what", "which"], ans: 0, explain: "news 後面的 that 子句是同位語 (補充說明 news 內容)。" },
+                { q: "I have no idea ___ I should do.", options: ["that", "what", "whether"], ans: 1, explain: "idea 後面用 what + S + should do (我該做什麼)。" },
+                { q: "Did she tell you ___ she was late?", options: ["why", "why was", "that"], ans: 0, explain: "**間接問句**不倒裝，用 why she was late。" },
+                { q: "I can't believe ___ he said that.", options: ["what", "that", "which"], ans: 1, explain: "believe 後面用 that 子句。" },
+                { q: "___ you can come or not doesn't matter.", options: ["That", "Whether", "What"], ans: 1, explain: "**Whether... or not** 子句作主詞 (是否...不重要)。" },
+                { q: "We discussed ___ we should buy.", options: ["that", "what", "how"], ans: 1, explain: "buy 缺受詞，用 what 引導名詞子句 (我們該買的東西)。" },
+                { q: "The problem is ___ we have enough time.", options: ["that", "what", "if"], ans: 1, explain: "problem is (主詞補語) 用 if/whether (是否)。" },
+                { q: "He asked me ___ I was doing.", options: ["that", "what", "who"], ans: 1, explain: "**間接問句**不倒裝，用 what I was doing。" },
+                { q: "___ caused the accident is still unknown.", options: ["That", "What", "When"], ans: 1, explain: "子句當主詞，且動詞 caused 缺主詞，用 What。" },
+                { q: "I am sure ___ he is innocent.", options: ["what", "that", "which"], ans: 1, explain: "be sure 後面接 that 子句。" },
+                { q: "Do you know ___ his name is?", options: ["what", "what is", "that"], ans: 0, explain: "**間接問句**不倒裝，用 what his name is。" },
+                { q: "It seems ___ they are happy.", options: ["what", "that", "which"], ans: 1, explain: "It seems 後面用 that 子句。" },
+                { q: "I explained ___ I was absent.", options: ["that", "what", "why"], ans: 2, explain: "explain (解釋) 後面接 why 子句 (我缺席的原因)。" },
+                { q: "I read ___ you wrote.", options: ["that", "what", "which"], ans: 1, explain: "read 缺受詞，用 what 引導名詞子句 (你寫的東西)。" },
+                { q: "Tell me ___ I can find the office.", options: ["that", "what", "where"], ans: 2, explain: "**間接問句**不倒裝，用 where I can find..." },
+                { q: "___ he left so quickly surprised me.", options: ["What", "That", "Why"], ans: 2, explain: "Why 子句作主詞 (他離開的原因)。" },
+                { q: "The reason is ___ he didn't study.", options: ["that", "what", "which"], ans: 0, explain: "The reason is (主詞補語) 用 that 子句。" },
+                { q: "We are discussing ___ to do next.", options: ["what", "that", "which"], ans: 0, explain: "Discussing 後面用 what to do (不定詞片語作名詞)。" },
+                { q: "She asked ___ I was hungry.", options: ["what", "if", "that"], ans: 1, explain: "ask (詢問) 後面用 if/whether (是否)。" },
+                { q: "___ he said made me angry.", options: ["That", "What", "When"], ans: 1, explain: "子句當主詞，且動詞 said 缺受詞，用 What。" },
+                { q: "The problem is ___ he failed to follow the rules.", options: ["that", "what", "which"], ans: 0, explain: "The problem is 後面接 that 子句。" }
             ]
         },
         {
             title: "L15. 附和句與連接詞",
-            desc: "So do I / Neither do I 與連接詞。",
+            desc: "**附和句** (So/Neither) 與**連接詞** (but, because, so, when)。",
             tag: "國三總結",
             tagClass: "tag-g3",
-            concept: "肯定附和：So + 助動詞 + 主詞。<br>否定附和：Neither + 助動詞 + 主詞。",
+            concept: "肯定附和：So + 助動詞 + 主詞。否定附和：**Neither** + 助動詞 + 主詞。**連接詞** (although/but 不連用)。",
             questions: [
                 { q: "A: I like dogs. B: So ___ I.", options: ["do", "am", "can"], ans: 0, explain: "Like 是由 do 助動詞幫忙，所以用 So do I。" },
                 { q: "A: I am happy. B: So ___ I.", options: ["do", "am", "was"], ans: 1, explain: "前句有 am，附和就用 am。" },
+                { q: "She is smart, ___ she is lazy.", options: ["so", "but", "because"], ans: 1, explain: "前句是優點，後句是缺點，語氣轉折用 but。" },
+                { q: "Because it rained, ___ we stayed home.", options: ["so", "but", "x"], ans: 2, explain: "Because(因為) 和 So(所以) 不能連用！選 x。" },
                 { q: "A: I can't fly. B: ___ can I.", options: ["So", "Neither", "Either"], ans: 1, explain: "否定句的附和（我也不行）用 Neither。" },
-                { q: "Although it rained, ___ we went out.", options: ["but", "x", "so"], ans: 1, explain: "Although(雖然) 和 But(但是) 不能連用！選 x。" }
+                { q: "___ he is rich, he is not happy.", options: ["Because", "Although", "So"], ans: 1, explain: "Although (雖然) 表示語氣轉折。" },
+                { q: "I bought a new book ___ I wanted to read.", options: ["but", "so", "because"], ans: 2, explain: "因為我想要讀，所以買 (表原因)。" },
+                { q: "A: I was tired. B: So ___ I.", options: ["do", "am", "was"], ans: 2, explain: "前句有 was，附和就用 was。" },
+                { q: "She didn't call, ___ neither did he.", options: ["but", "so", "because"], ans: 2, explain: "Neither did he (他也沒有)，與前半句是並列關係，用 so (所以，前面有逗號時)。" },
+                { q: "A: I must leave. B: So ___ I.", options: ["do", "must", "am"], ans: 1, explain: "前句有 must，附和就用 must。" },
+                { q: "I will call you ___ I get home.", options: ["but", "when", "so"], ans: 1, explain: "when (當...的時候) 表時間。" },
+                { q: "He went to the hospital ___ he was sick.", options: ["because", "so", "although"], ans: 0, explain: "因為他生病了，所以去醫院 (表原因)。" },
+                { q: "A: I have finished. B: So ___ I.", options: ["do", "have", "am"], ans: 1, explain: "前句有 have (完成式助動詞)，附和就用 have。" },
+                { q: "I don't speak French, and ___ does my brother.", options: ["so", "neither", "either"], ans: 1, explain: "否定句，用 neither (我弟也沒有)。" },
+                { q: "___ he finished his homework, he went to bed.", options: ["Because", "Although", "After"], ans: 2, explain: "After (在...之後) 表時間順序。" },
+                { q: "You should study hard, ___ you will fail.", options: ["or", "so", "but"], ans: 0, explain: "or (否則) 表示後果。" },
+                { q: "A: I can play the guitar. B: So ___ I.", options: ["do", "can", "am"], ans: 1, explain: "前句有 can，附和就用 can。" },
+                { q: "It was too cold, ___ we stayed indoors.", options: ["but", "so", "because"], ans: 1, explain: "太冷了，所以 (so) 我們待在室內 (表結果)。" },
+                { q: "A: I will be there. B: So ___ I.", options: ["do", "will", "am"], ans: 1, explain: "前句有 will，附和就用 will。" },
+                { q: "He is rich, ___ he is not generous.", options: ["so", "but", "because"], ans: 1, explain: "富有但不大方 (表轉折)。" },
+                { q: "A: I don't know the answer. B: Neither ___ I.", options: ["do", "am", "can"], ans: 0, explain: "前句 do 助動詞否定，後用 do (我也不知道)。" },
+                { q: "I will help you ___ you need me.", options: ["but", "when", "so"], ans: 1, explain: "當你需要我時，我會幫助你 (表時間)。" },
+                { q: "___ she was hungry, she didn't eat.", options: ["Because", "Although", "So"], ans: 1, explain: "雖然她餓了，但她沒吃 (表轉折)。" },
+                { q: "A: I visited Paris. B: So ___ I.", options: ["do", "did", "have"], ans: 1, explain: "過去式一般動詞，附和用 did。" },
+                { q: "She loves him, ___ he loves her.", options: ["and", "but", "so"], ans: 0, explain: "and (而且) 表並列或補充。" },
+                { q: "He didn't study hard, ___ he failed.", options: ["but", "so", "because"], ans: 1, explain: "沒有用功，所以 (so) 他失敗了 (表結果)。" },
+                { q: "A: I am not going. B: Neither ___ I.", options: ["am", "do", "can"], ans: 0, explain: "前句有 am not，附和用 am (我也不去)。" },
+                { q: "I was late ___ I missed the bus.", options: ["so", "because", "although"], ans: 1, explain: "我錯過公車，是遲到的原因 (表原因)。" },
+                { q: "She is smart, ___ her brother is smarter.", options: ["and", "but", "so"], ans: 1, explain: "轉折語氣，用 but。" },
+                { q: "A: I haven't seen it. B: Neither ___ I.", options: ["do", "have", "am"], ans: 1, explain: "前句有 have not (完成式助動詞)，附和用 have (我也沒看過)。" }
+            ]
+        },
+        {
+            title: "L16. 數量與不定代名詞",
+            desc: "**both/all 的用法**、**one/ones**、**one another/other**、**數量不定代名詞**。",
+            tag: "國三進階",
+            tagClass: "tag-g3",
+            concept: "**Both** (兩者都)；**All** (三者以上都)。**one/ones** 代替可數名詞。**one another/each other** (彼此)。**most** of N. (大部分)。",
+            questions: [
+                { q: "___ of my two sisters are teachers.", options: ["All", "Both", "Every"], ans: 1, explain: "Two sisters (兩者) 用 Both。" },
+                { q: "I don't like this shirt. Show me a new ___.", options: ["one", "ones", "other"], ans: 0, explain: "代替單數可數名詞 shirt 用 one。" },
+                { q: "They looked at ___ in the mirror.", options: ["another", "each other", "others"], ans: 1, explain: "彼此互相用 each other (或 one another)。" },
+                { q: "**Most** of the students ___ in class.", options: ["is", "are", "have"], ans: 1, explain: "Most of 後面的名詞 (students 複數) 決定動詞 (are)。" },
+                { q: "He has three dogs. ___ of them are black.", options: ["Both", "All", "Either"], ans: 1, explain: "Three dogs (三者以上) 用 All。" },
+                { q: "I have two bags. ___ is red and the other is blue.", options: ["One", "Another", "The other"], ans: 0, explain: "兩個中的其中一個用 One。" },
+                { q: "The two brothers always help ___.", options: ["one another", "each other", "other"], ans: 1, explain: "兩者互相用 each other。" },
+                { q: "I need some green apples. Do you have any green ___?", options: ["one", "ones", "other"], ans: 1, explain: "代替複數可數名詞 apples 用 ones。" },
+                { q: "I bought three pencils. I lost one, but I still have ___.", options: ["another", "the others", "the other"], ans: 1, explain: "剩下兩支，用 the others (剩下的複數)。" },
+                { q: "___ of the money was stolen.", options: ["All", "Most", "Both"], ans: 0, explain: "money 不可數，用 All (所有的錢)。" },
+                { q: "I have many books. Some are new, and ___ are old.", options: ["other", "another", "others"], ans: 2, explain: "Some... others... (一些...另一些...)" },
+                { q: "We ___ have to work hard.", options: ["both", "all", "each"], ans: 1, explain: "We 指三者以上，用 all。" },
+                { q: "I have two brothers. ___ of them is married.", options: ["All", "Both", "Neither"], ans: 2, explain: "Neither (兩者皆不) 搭配單數動詞 is。" },
+                { q: "Can you pass me the blue ___?", options: ["pencil", "one", "ones"], ans: 1, explain: "代替單數可數名詞 pencil 用 one。" },
+                { q: "He waved to ___ in the crowd.", options: ["each other", "one another", "others"], ans: 2, explain: "向『其他人』揮手，用 others。" },
+                { q: "___ of the students passed the test.", options: ["Most", "Many", "Both"], ans: 0, explain: "Most of the students (大部分學生) 指數量不定代名詞。" },
+                { q: "She has two cats. ___ of them is white.", options: ["One", "Another", "The other"], ans: 0, explain: "兩個中的其中一個用 One。" },
+                { q: "I see three cars. One is red, and ___ are black.", options: ["other", "another", "the others"], ans: 2, explain: "剩下兩輛，用 the others。" },
+                { q: "We are all friends, and we should help ___.", options: ["each other", "one another", "both"], ans: 1, explain: "三者以上互相，用 one another。" },
+                { q: "I have little time, so I can't help ___.", options: ["other", "others", "another"], ans: 1, explain: "others (其他人)。" },
+                { q: "The two teams congratulated ___.", options: ["one another", "each other", "other"], ans: 1, explain: "兩者互相用 each other。" },
+                { q: "I lost my pen. I need to buy ___ new ___.", options: ["a / one", "the / one", "an / one"], ans: 0, explain: "再買一支新的 (不定代名詞) 用 a new one。" },
+                { q: "___ of my classmates are from Japan.", options: ["Most", "All", "Both"], ans: 0, explain: "Most of (大部分)。" },
+                { q: "There are four books here. One is mine, ___ are yours.", options: ["the other", "others", "the others"], ans: 2, explain: "剩下三本，用 the others。" },
+                { q: "He knows ___ about the case.", options: ["all", "everything", "both"], ans: 1, explain: "know everything (知道所有事情)。" },
+                { q: "They have two sons. ___ of them is a doctor.", options: ["All", "Both", "Neither"], ans: 1, explain: "兩者都用 Both。" },
+                { q: "I'll take the small one, and you can take the big ___.", options: ["other", "one", "ones"], ans: 1, explain: "代替單數名詞 one。" },
+                { q: "___ of the students knows the answer.", options: ["Most", "None", "All"], ans: 1, explain: "None of the students (沒有一個學生)，搭配單數動詞 knows。" },
+                { q: "Give me ___ chance.", options: ["other", "another", "others"], ans: 1, explain: "another (再一個)。" },
+                { q: "We must love ___.", options: ["each other", "one another", "both"], ans: 0, explain: "彼此相愛用 each other (或 one another)。" }
+            ]
+        },
+        {
+            title: "L17. 複雜片語與慣用語",
+            desc: "**used to**、**花費動詞**、**名詞片語**、**雙字片語動詞**、**問路與回答問路**。",
+            tag: "國三總結",
+            tagClass: "tag-g3",
+            concept: "**Used to** + V (過去習慣)。**It takes** + 時間 + to V (**花費動詞**)。**雙字片語動詞** (e.g. put off, look for)。**問路**：How can I get to N.?",
+            questions: [
+                { q: "He ___ smoke a lot, but he doesn't now.", options: ["used to", "is used to", "use to"], ans: 0, explain: "過去習慣，用 used to + 原形。" },
+                { q: "It took me three hours ___ the book.", options: ["read", "to read", "reading"], ans: 1, explain: "It takes/took... **to V 不定詞** (花費時間做某事)。" },
+                { q: "Please ___ the trash.", options: ["throw at", "throw away", "throw for"], ans: 1, explain: "throw away (丟掉) 是**雙字片語動詞**。" },
+                { q: "How can I get ___ the library?", options: ["to", "at", "for"], ans: 0, explain: "**問路**：How can I get to...? (如何到達某處)。" },
+                { q: "I am used to ___ early.", options: ["get up", "getting up", "to get up"], ans: 1, explain: "be used to + V-ing (習慣於做某事)。" },
+                { q: "The project was ___ off until next week.", options: ["put", "put up", "put off"], ans: 2, explain: "put off (延期) 是**雙字片語動詞**。" },
+                { q: "She spent $100 ___ the shirt.", options: ["buy", "to buy", "buying"], ans: 2, explain: "spend money/time + V-ing (**花費動詞**)。" },
+                { q: "The easiest way ___ is to turn right.", options: ["to get there", "getting there", "get there"], ans: 0, explain: "**名詞片語**：The way to V (做...的方法)。" },
+                { q: "They used to ___ here.", options: ["live", "living", "to live"], ans: 0, explain: "used to + 原形 (過去習慣)。" },
+                { q: "It takes a lot of effort ___ the game.", options: ["win", "to win", "winning"], ans: 1, explain: "It takes + N + to V。" },
+                { q: "Could you tell me how ___ the post office?", options: ["to get to", "getting to", "get to"], ans: 0, explain: "how to V (如何做...)，**問路**常用。" },
+                { q: "I found out that he ___ be a soldier.", options: ["used to", "was used to", "is used to"], ans: 0, explain: "used to (過去習慣/事實)。" },
+                { q: "He looks ___ his little sister.", options: ["at", "like", "for"], ans: 1, explain: "look like (看起來像) 是**雙字片語動詞**。" },
+                { q: "The **weather** ___ getting colder.", options: ["is", "are", "do"], ans: 0, explain: "Weather (天氣) 不可數，用 is。" },
+                { q: "We spent two days ___ the museum.", options: ["visit", "to visit", "visiting"], ans: 2, explain: "spend time + V-ing (**花費動詞**)。" },
+                { q: "I gave up ___ a doctor.", options: ["to be", "being", "be"], ans: 1, explain: "give up (放棄) 後接 V-ing。" },
+                { q: "You should ___ your coat.", options: ["put on", "put up", "put for"], ans: 0, explain: "put on (穿上) 是**雙字片語動詞**。" },
+                { q: "It costs $50 ___ the book.", options: ["buy", "to buy", "buying"], ans: 1, explain: "It costs + money + to V (**花費動詞**)。" },
+                { q: "I am going to ___ my old clothes.", options: ["throw away", "throw at", "throw up"], ans: 0, explain: "throw away (丟掉) 是**雙字片語動詞**。" },
+                { q: "I used to ___ a long hair.", options: ["have", "having", "to have"], ans: 0, explain: "used to + 原形 (過去習慣)。" },
+                { q: "She is a kind of person ___ likes reading.", options: ["who", "which", "that"], ans: 0, explain: "**名詞片語** a kind of person (一類人)，用 who。" },
+                { q: "He spent a lot of time ___ the car.", options: ["repair", "to repair", "repairing"], ans: 2, explain: "spend time + V-ing。" },
+                { q: "The **ones** ___ are new are more expensive.", options: ["which", "who", "that"], ans: 0, explain: "ones 代替複數名詞，關係代名詞用 which/that。" },
+                { q: "I'm ___ for my keys.", options: ["looking at", "looking for", "looking like"], ans: 1, explain: "look for (尋找) 是**雙字片語動詞**。" },
+                { q: "The tourist asked me to show ___ the way to the park.", options: ["he", "him", "his"], ans: 1, explain: "show 是授與動詞，直接接人 (him)。" },
+                { q: "It took a whole night ___ the movie.", options: ["watch", "to watch", "watching"], ans: 1, explain: "It took + N + to V。" },
+                { q: "I can't ___ this noise.", options: ["put on", "put up with", "put away"], ans: 1, explain: "put up with (忍受) 是**雙字片語動詞**。" },
+                { q: "He is used to ___ in a big city.", options: ["live", "living", "to live"], ans: 1, explain: "be used to + V-ing (習慣於...)" },
+                { q: "Where is the post office? Go straight and ___ right.", options: ["turn", "to turn", "turning"], ans: 0, explain: "**回答問路**：Go straight, turn right (祈使句)。" },
+                { q: "She always puts ___ her coat when she gets home.", options: ["on", "away", "off"], ans: 0, explain: "put on (穿上) 是**雙字片語動詞**。" }
             ]
         }
     ];
 
     // --- State Management ---
-    let currentTopic = null;
+    let currentTopic = null; // This will hold the topic *with 10 selected questions*
     let currentQuestionIndex = 0;
     let score = 0;
-
+    
     // --- DOM Elements ---
     const menuView = document.getElementById('menu-view');
     const gameInterface = document.getElementById('game-interface');
@@ -516,7 +990,7 @@
             card.onclick = () => startGame(index);
             
             // Assign random icon
-            const icons = ['🏰', '⚔️', '🛡️', '🧙‍♂️', '🐉', '📜', '🎯', '💎', '🏺', '🗝️'];
+            const icons = ['🏰', '⚔️', '🛡️', '🧙‍♂️', '🐉', '📜', '🎯', '💎', '🏺', '🗝️', '💡', '🎓', '📚', '🧩', '⚖️', '🧭', '⏱️'];
             const icon = icons[index % icons.length];
             const tagClass = topic.tagClass || '';
 
@@ -532,9 +1006,27 @@
         });
     }
 
+    // Helper function to select random questions
+    function getRandomQuestions(arr, num) {
+        if (arr.length <= num) {
+            return arr; // Not enough questions, return all
+        }
+        // 隨機排序並選取前 num 個
+        const shuffled = [...arr].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, num);
+    }
+
     // --- Game Logic ---
     function startGame(index) {
-        currentTopic = grammarData[index];
+        const rawTopic = grammarData[index];
+        const selectedQuestions = getRandomQuestions(rawTopic.questions, 10); // 隨機選取 10 題
+        
+        // 使用選取的 10 題來設定當前關卡
+        currentTopic = {
+            ...rawTopic,
+            questions: selectedQuestions
+        };
+
         currentQuestionIndex = 0;
         score = 0;
         
@@ -564,6 +1056,7 @@
     function loadQuestion() {
         const qData = currentTopic.questions[currentQuestionIndex];
         
+        // 總題數現在是 10 題
         progressText.textContent = `${currentQuestionIndex + 1} / ${currentTopic.questions.length}`;
         questionText.textContent = qData.q;
         
@@ -622,7 +1115,7 @@
         gameInterface.style.display = 'none';
         resultView.style.display = 'block';
 
-        const total = currentTopic.questions.length;
+        const total = currentTopic.questions.length; // 總題數為 10 題
         const finalScoreVal = Math.round((score / total) * 100);
         document.getElementById('final-score').textContent = finalScoreVal;
 
@@ -631,7 +1124,7 @@
         if (score === total) {
             starsHTML = '<span class="gold">★</span><span class="gold">★</span><span class="gold">★</span>';
             comment = "完美通關！你是文法大師！🏆";
-        } else if (score >= total - 1) {
+        } else if (score >= total * 0.8) {
             starsHTML = '<span class="gold">★</span><span class="gold">★</span><span>★</span>';
             comment = "太棒了！觀念非常清楚！👏";
         } else {
