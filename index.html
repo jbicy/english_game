@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>國中英文通關傳說：全課綱終極版</title>
+    <title>國中英文通關傳說：全課綱終極版 (修訂版)</title>
     <style>
         :root {
             --primary: #6366f1;
@@ -26,7 +26,7 @@
         }
 
         .container {
-            max-width: 900px; /*稍微加寬以容納更多卡片*/
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -227,15 +227,6 @@
         .stars { font-size: 3rem; color: #d1d5db; margin: 20px 0; }
         .stars span.gold { color: var(--accent); text-shadow: 0 0 15px rgba(245, 158, 11, 0.6); }
         .score-big { font-size: 4rem; font-weight: 900; color: var(--secondary); }
-        
-        .highlight-keyword {
-            color: #d946ef;
-            font-weight: bold;
-            background: #fae8ff;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
     </style>
 </head>
 <body>
@@ -246,8 +237,7 @@
         <div class="subtitle">包含名詞、時態、助動詞、被動語態與三大子句</div>
     </header>
 
-    <div id="menu-view" class="menu-grid">
-        </div>
+    <div id="menu-view" class="menu-grid"></div>
 
     <div id="game-interface">
         <div class="game-header">
@@ -286,7 +276,7 @@
 </div>
 
 <script>
-    // --- Data: 完整國中核心文法資料庫 (每個主題已擴充至 30 題) ---
+    // --- Data: 完整國中核心文法資料庫 (經修訂以避免語意不清) ---
     const grammarData = [
         // --- 國一 (基礎) ---
         {
@@ -654,8 +644,8 @@
                 { q: "They decided ___ home.", options: ["go", "going", "to go"], ans: 2, explain: "Decide (決定) 後面接 to V。" },
                 { q: "___ English takes time.", options: ["Study", "Studying", "To study"], ans: 1, explain: "動名詞 Studying 作主詞 (Ving 片語)。" },
                 { q: "I hope ___ you soon.", options: ["see", "seeing", "to see"], ans: 2, explain: "Hope (希望) 後面接 to V。" },
-                { q: "He stopped ___ when the teacher came in.", options: ["talk", "talking", "to talk"], ans: 1, explain: "Stop + V-ing (停止做某事)。" },
-                { q: "I stopped ___ to the post office.", options: ["go", "going", "to go"], ans: 2, explain: "Stop + to V (停下來去做某事)。" },
+                { q: "He stopped ___ when the teacher came in.", options: ["talk", "talking", "to talk"], ans: 1, explain: "Stop + V-ing (停止做某事)。老師進來，所以停止說話。" },
+                { q: "I stopped ___ to the post office.", options: ["go", "going", "to go"], ans: 2, explain: "Stop + to V (停下來去做某事)。停下腳步去郵局。" },
                 { q: "We avoided ___ him the bad news.", options: ["tell", "telling", "to tell"], ans: 1, explain: "Avoid (避免) 後面接 V-ing。" },
                 { q: "It's hard ___ alone.", options: ["live", "living", "to live"], ans: 2, explain: "It is + adj + to V (to live 作真主詞)。" },
                 { q: "I finished ___ my homework.", options: ["do", "doing", "to do"], ans: 1, explain: "Finish 後面接 V-ing。" },
@@ -934,24 +924,24 @@
                 { q: "It takes a lot of effort ___ the game.", options: ["win", "to win", "winning"], ans: 1, explain: "It takes + N + to V。" },
                 { q: "Could you tell me how ___ the post office?", options: ["to get to", "getting to", "get to"], ans: 0, explain: "how to V (如何做...)，**問路**常用。" },
                 { q: "I found out that he ___ be a soldier.", options: ["used to", "was used to", "is used to"], ans: 0, explain: "used to (過去習慣/事實)。" },
-                { q: "He looks ___ his little sister.", options: ["at", "like", "for"], ans: 1, explain: "look like (看起來像) 是**雙字片語動詞**。" },
+                { q: "He and his sister have the same eyes. He looks ___ his little sister.", options: ["like", "at", "for"], ans: 0, explain: "上下文顯示他們眼睛很像，所以是 looks like (看起來像)。" },
                 { q: "The **weather** ___ getting colder.", options: ["is", "are", "do"], ans: 0, explain: "Weather (天氣) 不可數，用 is。" },
                 { q: "We spent two days ___ the museum.", options: ["visit", "to visit", "visiting"], ans: 2, explain: "spend time + V-ing (**花費動詞**)。" },
                 { q: "I gave up ___ a doctor.", options: ["to be", "being", "be"], ans: 1, explain: "give up (放棄) 後接 V-ing。" },
-                { q: "You should ___ your coat.", options: ["put on", "put up", "put for"], ans: 0, explain: "put on (穿上) 是**雙字片語動詞**。" },
+                { q: "It's cold. You should ___ your coat.", options: ["put on", "put up", "put for"], ans: 0, explain: "put on (穿上)。" },
                 { q: "It costs $50 ___ the book.", options: ["buy", "to buy", "buying"], ans: 1, explain: "It costs + money + to V (**花費動詞**)。" },
-                { q: "I am going to ___ my old clothes.", options: ["throw away", "throw at", "throw up"], ans: 0, explain: "throw away (丟掉) 是**雙字片語動詞**。" },
+                { q: "I am going to ___ my old clothes.", options: ["throw away", "throw at", "throw up"], ans: 0, explain: "throw away (丟掉)。" },
                 { q: "I used to ___ a long hair.", options: ["have", "having", "to have"], ans: 0, explain: "used to + 原形 (過去習慣)。" },
                 { q: "She is a kind of person ___ likes reading.", options: ["who", "which", "that"], ans: 0, explain: "**名詞片語** a kind of person (一類人)，用 who。" },
                 { q: "He spent a lot of time ___ the car.", options: ["repair", "to repair", "repairing"], ans: 2, explain: "spend time + V-ing。" },
                 { q: "The **ones** ___ are new are more expensive.", options: ["which", "who", "that"], ans: 0, explain: "ones 代替複數名詞，關係代名詞用 which/that。" },
-                { q: "I'm ___ for my keys.", options: ["looking at", "looking for", "looking like"], ans: 1, explain: "look for (尋找) 是**雙字片語動詞**。" },
+                { q: "I can't find my keys. I am looking ___ them.", options: ["at", "for", "after"], ans: 1, explain: "找不到鑰匙，所以在尋找 (looking for)。" },
                 { q: "The tourist asked me to show ___ the way to the park.", options: ["he", "him", "his"], ans: 1, explain: "show 是授與動詞，直接接人 (him)。" },
                 { q: "It took a whole night ___ the movie.", options: ["watch", "to watch", "watching"], ans: 1, explain: "It took + N + to V。" },
                 { q: "I can't ___ this noise.", options: ["put on", "put up with", "put away"], ans: 1, explain: "put up with (忍受) 是**雙字片語動詞**。" },
                 { q: "He is used to ___ in a big city.", options: ["live", "living", "to live"], ans: 1, explain: "be used to + V-ing (習慣於...)" },
                 { q: "Where is the post office? Go straight and ___ right.", options: ["turn", "to turn", "turning"], ans: 0, explain: "**回答問路**：Go straight, turn right (祈使句)。" },
-                { q: "She always puts ___ her coat when she gets home.", options: ["on", "away", "off"], ans: 0, explain: "put on (穿上) 是**雙字片語動詞**。" }
+                { q: "She always puts ___ her coat when she gets home.", options: ["on", "away", "off"], ans: 0, explain: "put on (穿上)。" }
             ]
         }
     ];
